@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Prompt, Poppins } from "next/font/google";
 import GlobalStyle from "@/styles/GlobalStyles";
+import StyledComponentsRegistry from "@/lib/registry";
 
 const prompt = Prompt({
   subsets: ["latin"],
@@ -27,8 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${prompt.variable} ${poppins.variable}`}>
-        <GlobalStyle />
-        {children}
+        <StyledComponentsRegistry>
+          <GlobalStyle />
+          {children}
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

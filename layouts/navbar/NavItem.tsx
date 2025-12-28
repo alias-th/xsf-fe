@@ -73,9 +73,9 @@ const CartSvg = () => {
       <path
         d="M0.75 0.75H2.88333L3.52333 3.95M3.52333 3.95L5.01667 11.4167H15.6833L17.8167 3.95H3.52333Z"
         stroke="#252525"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -91,8 +91,8 @@ const ProfileSvg = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M8 1.24749C4.27069 1.24749 1.24749 4.27069 1.24749 8C1.24749 11.7293 4.27069 14.7525 8 14.7525C11.7293 14.7525 14.7525 11.7293 14.7525 8C14.7525 4.27069 11.7293 1.24749 8 1.24749ZM0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8Z"
         fill="#252525"
       />
@@ -117,8 +117,15 @@ const WrapperItem = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  justify-content: space-between;
   cursor: pointer;
 `;
+
+const Wrapper = styled.div`
+  display: flex;
+  gap: 24px;
+`;
+
 const NavItem = () => {
   const items = [
     {
@@ -139,7 +146,7 @@ const NavItem = () => {
     {
       id: "cart",
       icon: <CartSvg />,
-      label: "ตะกร้าส",
+      label: "ตะกร้า",
     },
     {
       id: "profile",
@@ -148,10 +155,6 @@ const NavItem = () => {
     },
   ];
 
-  const Wrapper = styled.div`
-    display: flex;
-    gap: 24px;
-  `;
   return (
     <Wrapper>
       {items.map((item) => {

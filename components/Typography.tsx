@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-type TypographyVariant = "h1" | "h2" | "span" | "body" | "caption";
+type TypographyVariant = "h1" | "h2" | "span" | "body" | "p" | "caption";
 
 interface TypographyProps {
   $variant?: TypographyVariant;
@@ -31,6 +31,11 @@ const variantStyles = {
   `,
   span: css`
     font-size: 12px;
+    font-weight: 400;
+    line-height: 1.6;
+  `,
+  p: css`
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.6;
   `,

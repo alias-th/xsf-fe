@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
     --color-5: #BCBCC0; // placeholder
     --color-6: #F3F1F2; // Badge background
     --color-7: #E13B30; // Badge text
+    --color-8: #6C6C70; // Carousel active dot
     --border-1: #D9D9D9; // input border
     --white-1: #FFFFFF;
     --text: #000000;

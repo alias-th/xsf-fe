@@ -8,6 +8,7 @@ interface TypographyProps {
   $align?: "left" | "center" | "right";
   $fontFamily?: string;
   $fontSize?: string;
+  $fontWeight?: string;
 }
 
 const variantStyles = {
@@ -51,5 +52,6 @@ export const Typography = styled.p<TypographyProps>`
   text-align: ${({ $align }) => $align || "left"};
   font-family: ${({ $fontFamily }) => $fontFamily || "inherit"};
   font-size: ${({ $fontSize }) => $fontSize || "inherit"};
+  font-weight: ${({ $fontWeight }) => $fontWeight || "inherit"};
   margin: 0;
 `;

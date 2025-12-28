@@ -1,13 +1,22 @@
 "use client";
+import BannerCarousel from "@/layouts/home/BannerCarousel";
 import styled from "styled-components";
 
 const Wrapper = styled.section`
-  padding: 4em;
   background: papayawhip;
+  max-width: 1440px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0px auto;
 `;
 
 const Banner = () => {
-  return <Wrapper>I'm a banner</Wrapper>;
+  return (
+    <Wrapper>
+      <BannerCarousel />
+    </Wrapper>
+  );
 };
 
 export default Banner;

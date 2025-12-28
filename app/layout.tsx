@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Prompt, Poppins } from "next/font/google";
+import GlobalStyle from "@/styles/GlobalStyles";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const prompt = Prompt({
   subsets: ["latin"],
+  weight: ["300", "400", "700", "800"],
+  variable: "--font-prompt",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const poppins = Poppins({
   subsets: ["latin"],
+  weight: ["300", "400", "700", "800"],
+  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${prompt.variable} ${poppins.variable}`}>
+        <GlobalStyle />
         {children}
       </body>
     </html>

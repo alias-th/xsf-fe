@@ -11,6 +11,7 @@ interface StyledInputProps {
   icon?: JSX.Element;
   text?: string;
   children?: React.ReactNode;
+  $borderRadius?: string;
   onClick?: () => void;
 }
 
@@ -26,6 +27,7 @@ const StyledButton = styled.button<StyledInputProps>`
   align-items: center;
   border-radius: 16px;
   margin-left: ${(props) => props.$marginLeft || "0px"};
+  border-radius: ${(props) => props.$borderRadius || "8px"};
 `;
 
 const CustomButton = (props: StyledInputProps) => {

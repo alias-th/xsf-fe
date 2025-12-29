@@ -3,12 +3,14 @@ import styled, { css } from "styled-components";
 type TypographyVariant =
   | "span"
   | "p"
+  | "p-xxs"
   | "p-xs"
   | "p-sm"
   | "p-l"
   | "p-xl"
   | "p-2xl"
-  | "h3";
+  | "h3"
+  | "h2";
 
 interface TypographyProps {
   $variant?: TypographyVariant;
@@ -19,52 +21,57 @@ interface TypographyProps {
   $fontWeight?: string;
   $width?: string;
   $truncate?: boolean;
+  $lineHeight?: string;
+  $height?: string;
 }
 
 const variantStyles = {
+  h2: css`
+    font-size: 2rem; // 32px
+    font-weight: 400;
+  `,
   h3: css`
     font-size: 0.875rem; // 14px
     font-weight: 600;
-    line-height: 1.6;
   `,
   span: css`
     font-size: 0.75rem; // 12px
     font-weight: 400;
-    line-height: 1.6;
+  `,
+
+  ["p-xxs"]: css`
+    font-size: 0.5rem; // 8px
+    font-weight: 400;
   `,
 
   ["p-xs"]: css`
     font-size: 0.75rem; // 12px
     font-weight: 400;
-    line-height: 1.6;
   `,
   ["p-sm"]: css`
     font-size: 0.875rem; // 14px
     font-weight: 400;
-    line-height: 1.6;
   `,
   p: css`
     font-size: 1rem; // 16px
     font-weight: 400;
-    line-height: 1.6;
   `,
 
   ["p-l"]: css`
     font-size: 1.125rem; // 18px
     font-weight: 400;
-    line-height: 1.6;
   `,
   ["p-xl"]: css`
     font-size: 1.25rem; // 20px
     font-weight: 400;
-    line-height: 1.6;
   `,
 
   ["p-2xl"]: css`
     font-size: 1.5rem; // 24px
     font-weight: 400;
-    line-height: 1.6;
   `,
+
+  [""]: css``,
 };
 const truncateStyles = css`
   white-space: nowrap;
@@ -80,6 +87,8 @@ export const Typography = styled.p<TypographyProps>`
   font-weight: ${({ $fontWeight }) => $fontWeight || "inherit"};
   margin: 0;
   width: ${({ $width }) => $width || "auto"};
-  ${({ $variant }) => variantStyles[$variant || "p"]}
+  height: ${({ $height }) => $height || "auto"};
+  line-height: ${({ $lineHeight }) => $lineHeight || "1.6"};
+  ${({ $variant }) => variantStyles[$variant || ""]}
   ${({ $truncate }) => $truncate && truncateStyles}
 `;

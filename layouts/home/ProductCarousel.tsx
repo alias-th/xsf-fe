@@ -2,7 +2,7 @@ import CustomButton from "@/components/Button";
 import StyledCarouselButton from "@/components/CarouselButton";
 import NextIcon from "@/components/Icons/NextIcon";
 import PrevIcon from "@/components/Icons/PrevIcon";
-import LatestProductCard from "@/components/LatestProductCard";
+import ProductCard from "@/components/ProductCard";
 import { usePrevNextButtons } from "@/hooks/EmblaCarouselArrowButtons";
 import { useDotButton } from "@/hooks/EmblaCarouselDotButton";
 import useEmblaCarousel from "embla-carousel-react";
@@ -11,61 +11,65 @@ import styled from "styled-components";
 const StyledCarousel = styled.div`
   display: flex;
   margin: 0 auto;
-  max-width: 888px;
+  max-width: 1100px;
   height: 100%;
   width: 100%;
   justify-content: center;
   position: relative;
-  --slide-spacing: 1rem;
 `;
 
 const StyledViewport = styled.div`
   overflow: hidden;
   width: 100%;
   height: 100%;
-  margin-left: -16px;
+  /* margin-left: -16px; */
 `;
 
 const StyledCarouselContainer = styled.div`
   display: flex;
   touch-action: pan-y pinch-zoom;
-  margin-left: -1px;
+  margin-left: -16px;
+  padding-bottom: 16px;
+  padding-right: 12px;
 `;
 
 const StyledCarouselItem = styled.div`
-  flex: 0 0 calc(100% / 6);
-  min-width: 0;
-  padding-left: 16px;
+  flex: 0 0 calc(100% / 5);
+  min-width: 0px;
+  padding-left: 20px;
 `;
 
 const StyledCarouselButtonContainer = styled.div`
   position: absolute;
-  bottom: 56px;
+  bottom: -30px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: 16px;
 `;
 
-const StyledCarouselNextButtonContainer = styled.div`
-  position: absolute;
-  right: -10%;
-  top: 25%;
-  transform: translateX(-50%);
-`;
-
 const StyledCarouselPrevButtonContainer = styled.div`
   position: absolute;
-  left: -10%;
-  top: 25%;
-  transform: translateX(-50%);
+  left: -50px;
+  top: 47%;
+  transform: translateY(-50%);
 `;
 
-const LatestCarousel = () => {
+const StyledCarouselNextButtonContainer = styled.div`
+  position: absolute;
+  right: -50px;
+  top: 47%;
+  transform: translateY(-50%);
+`;
+
+type ProductCarouselProps = {
+  products: Array<any>;
+};
+const ProductCarousel = ({ products }: ProductCarouselProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     dragFree: true,
     slidesToScroll: "auto",
-    align: "start",
+    align: "center",
   });
 
   const {
@@ -77,19 +81,13 @@ const LatestCarousel = () => {
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
-
-  const products = Array.from({ length: 24 }).map((_, index) => ({
-    id: index + 1,
-    name: `Product ${index + 1}`,
-  }));
-
   return (
     <StyledCarousel>
       <StyledViewport ref={emblaRef}>
         <StyledCarouselContainer>
           {products.map((product) => (
             <StyledCarouselItem key={product.id}>
-              <LatestProductCard />
+              <ProductCard />
             </StyledCarouselItem>
           ))}
         </StyledCarouselContainer>
@@ -109,7 +107,10 @@ const LatestCarousel = () => {
       {!nextBtnDisabled && (
         <StyledCarouselNextButtonContainer>
           <CustomButton
-            $backgroundColor="transparent"
+            $backgroundColor="var(--white-1)"
+            $width="42px"
+            $height="42px"
+            $borderRadius="50%"
             onClick={onNextButtonClick}
           >
             <NextIcon />
@@ -120,7 +121,10 @@ const LatestCarousel = () => {
       {!prevBtnDisabled && (
         <StyledCarouselPrevButtonContainer>
           <CustomButton
-            $backgroundColor="transparent"
+            $backgroundColor="var(--white-1)"
+            $width="42px"
+            $height="42px"
+            $borderRadius="50%"
             onClick={onPrevButtonClick}
           >
             <PrevIcon />
@@ -131,4 +135,4 @@ const LatestCarousel = () => {
   );
 };
 
-export default LatestCarousel;
+export default ProductCarousel;

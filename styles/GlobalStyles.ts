@@ -19,6 +19,8 @@ const GlobalStyle = createGlobalStyle`
     --color-8: #6C6C70; // Carousel active dot
     --color-9: #D70015; // Discount badge background
     --color-10: #00990D; // In stock text
+    --color-11: #363638; // footer
+    --color-12: #8E8E93; // footer text
     --border-1: #D9D9D9; // input border
     --white-1: #FFFFFF;
     --text: #000000;

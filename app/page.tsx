@@ -3,9 +3,11 @@ import Category from "@/layouts/home/Category";
 import Collection from "@/layouts/home/Collection";
 import DealProduct from "@/layouts/home/DealProduct";
 import Feature from "@/layouts/home/Feature";
+import Footer from "@/layouts/home/Footer";
 import HomeLayout from "@/layouts/home/HomeLayout";
 import LatestView from "@/layouts/home/LatestView";
 import PopularProduct from "@/layouts/home/PopularProdcut";
+import WorkWithUs from "@/layouts/home/WorkWithUs";
 import Navbar from "@/layouts/navbar/Navbar";
 
 export default function Home() {
@@ -19,6 +21,8 @@ export default function Home() {
       <DealProduct />
       <Collection />
       <Feature />
+      <WorkWithUs />
+      <Footer />
     </HomeLayout>
   );
 }

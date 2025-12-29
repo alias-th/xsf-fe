@@ -21,6 +21,8 @@ const GlobalStyle = createGlobalStyle`
     --color-10: #00990D; // In stock text
     --color-11: #363638; // footer
     --color-12: #8E8E93; // footer text
+    --color-13: #005FCC; // link text
+    --color-14: #E04132; // red button background
     --border-1: #D9D9D9; // input border
     --white-1: #FFFFFF;
     --text: #000000;

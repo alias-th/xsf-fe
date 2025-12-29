@@ -29,7 +29,7 @@ const StyledButton = styled.button<StyledInputProps>`
   align-items: center;
   border-radius: 16px;
   margin-left: ${(props) => props.$marginLeft || "0px"};
-  border-radius: ${(props) => props.$borderRadius || "8px"};
+  border-radius: ${(props) => props.$borderRadius || "24px"};
   border: ${(props) => props.$border || "none"};
 `;
 

@@ -77,7 +77,12 @@ const SearchBar = () => {
       <SearchIcon />
       <WrapperInput>
         <CustomInput placeholder="ค้นหาสินค้า" />
-        <CustomButton $marginLeft="7px" $height="34px" $minWidth="120px">
+        <CustomButton
+          $marginLeft="7px"
+          $height="34px"
+          $minWidth="120px"
+          $borderRadius="16px"
+        >
           <>
             <IconSvg />
             <Typography

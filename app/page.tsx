@@ -11,6 +11,7 @@ export default function Home() {
       <Banner />
       <Category />
       <LatestView />
+      <div style={{ backgroundColor: "Highlight" }}></div>
     </HomeLayout>
   );
 }

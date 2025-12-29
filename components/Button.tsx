@@ -11,6 +11,7 @@ interface StyledInputProps {
   icon?: JSX.Element;
   text?: string;
   children?: React.ReactNode;
+  onClick?: () => void;
 }
 
 const StyledButton = styled.button<StyledInputProps>`

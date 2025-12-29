@@ -8,11 +8,13 @@ import { Typography } from "@/components/Typography";
 import Image from "next/image";
 
 const Wrapper = styled.nav`
-  max-width: 100%;
+  width: 100%;
+  max-width: 1240px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 32px;
+  margin: 0 auto;
 `;
 
 const MoreOptionsIcon = () => {

@@ -5,13 +5,13 @@ import StyledComponentsRegistry from "@/lib/registry";
 
 const prompt = Prompt({
   subsets: ["latin"],
-  weight: ["300", "400", "700", "800"],
+  weight: ["300", "400", "600", "700", "800"],
   variable: "--font-prompt",
 });
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["300", "400", "700", "800"],
+  weight: ["300", "400", "600", "700", "800"],
   variable: "--font-poppins",
 });
 

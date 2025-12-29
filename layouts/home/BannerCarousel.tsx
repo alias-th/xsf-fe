@@ -1,3 +1,4 @@
+import StyledCarouselButton from "@/components/CarouselButton";
 import { useDotButton } from "@/hooks/EmblaCarouselDotButton";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
@@ -36,17 +37,6 @@ const StyledCarouselButtonContainer = styled.div`
   gap: 16px;
 `;
 
-type StyledCarouselButtonProps = {
-  $active: boolean;
-};
-const StyledCarouselButtonItem = styled.button<StyledCarouselButtonProps>`
-  border-radius: 2px;
-  height: 4px;
-  width: 32px;
-  background-color: ${(props) =>
-    props.$active ? "var(--color-8)" : "var(--white-1)"};
-`;
-
 const BannerCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({}, [
     Autoplay({ playOnInit: true, delay: 5000 }),
@@ -77,7 +67,7 @@ const BannerCarousel = () => {
       </StyledCarouselContainer>
       <StyledCarouselButtonContainer>
         {scrollSnaps.map((_, index) => (
-          <StyledCarouselButtonItem
+          <StyledCarouselButton
             key={index}
             $active={index === selectedIndex}
             onClick={() => onDotButtonClick(index)}

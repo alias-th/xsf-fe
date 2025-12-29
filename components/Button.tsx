@@ -12,6 +12,8 @@ interface StyledInputProps {
   text?: string;
   children?: React.ReactNode;
   $borderRadius?: string;
+  $border?: string;
+  $gap?: string;
   onClick?: () => void;
 }
 
@@ -21,13 +23,14 @@ const StyledButton = styled.button<StyledInputProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: ${(props) => props.$gap || "8px"};
   background-color: ${(props) => props.$backgroundColor || "var(--color-6)"};
   height: ${(props) => props.$height || "100%"};
   align-items: center;
   border-radius: 16px;
   margin-left: ${(props) => props.$marginLeft || "0px"};
   border-radius: ${(props) => props.$borderRadius || "8px"};
+  border: ${(props) => props.$border || "none"};
 `;
 
 const CustomButton = (props: StyledInputProps) => {

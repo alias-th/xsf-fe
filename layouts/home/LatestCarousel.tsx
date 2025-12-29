@@ -49,16 +49,16 @@ const StyledCarouselButtonContainer = styled.div`
 
 const StyledCarouselNextButtonContainer = styled.div`
   position: absolute;
-  right: -10%;
+  right: -150px;
   top: 25%;
-  transform: translateX(-50%);
+  transform: translateY(-50%);
 `;
 
 const StyledCarouselPrevButtonContainer = styled.div`
   position: absolute;
-  left: -10%;
+  left: -150px;
   top: 25%;
-  transform: translateX(-50%);
+  transform: translateY(-50%);
 `;
 
 const LatestCarousel = () => {
@@ -109,6 +109,9 @@ const LatestCarousel = () => {
       {!nextBtnDisabled && (
         <StyledCarouselNextButtonContainer>
           <CustomButton
+            $width="42px"
+            $height="42px"
+            $borderRadius="50%"
             $backgroundColor="transparent"
             onClick={onNextButtonClick}
           >
@@ -120,6 +123,9 @@ const LatestCarousel = () => {
       {!prevBtnDisabled && (
         <StyledCarouselPrevButtonContainer>
           <CustomButton
+            $width="42px"
+            $height="42px"
+            $borderRadius="50%"
             $backgroundColor="transparent"
             onClick={onPrevButtonClick}
           >

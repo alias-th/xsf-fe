@@ -23,6 +23,7 @@ interface TypographyProps {
   $truncate?: boolean;
   $lineHeight?: string;
   $height?: string;
+  $whiteSpace?: boolean;
 }
 
 const variantStyles = {
@@ -79,6 +80,10 @@ const truncateStyles = css`
   text-overflow: ellipsis;
 `;
 
+const whiteSpaceStyles = css`
+  white-space: pre-line;
+`;
+
 export const Typography = styled.p<TypographyProps>`
   color: ${({ $color }) => $color || "inherit"};
   text-align: ${({ $align }) => $align || "left"};
@@ -91,4 +96,5 @@ export const Typography = styled.p<TypographyProps>`
   line-height: ${({ $lineHeight }) => $lineHeight || "1.6"};
   ${({ $variant }) => variantStyles[$variant || ""]}
   ${({ $truncate }) => $truncate && truncateStyles}
+  ${({ $whiteSpace }) => $whiteSpace && whiteSpaceStyles}
 `;

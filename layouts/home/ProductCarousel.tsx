@@ -33,10 +33,18 @@ const StyledCarouselContainer = styled.div`
   padding-right: 12px;
 `;
 
-const StyledCarouselItem = styled.div`
+type StyledCarouselItemProps = {
+  $enableVariableWidth?: boolean;
+};
+const StyledCarouselItem = styled.div<StyledCarouselItemProps>`
   flex: 0 0 calc(100% / 5);
   min-width: 0px;
   padding-left: 20px;
+
+  &:first-child {
+    flex: ${({ $enableVariableWidth }) =>
+      $enableVariableWidth ? "0 0 668px" : "0 0 calc(100% / 5)"};
+  }
 `;
 
 const StyledCarouselButtonContainer = styled.div`
@@ -64,8 +72,12 @@ const StyledCarouselNextButtonContainer = styled.div`
 
 type ProductCarouselProps = {
   products: Array<any>;
+  enableVariableWidth?: boolean;
 };
-const ProductCarousel = ({ products }: ProductCarouselProps) => {
+const ProductCarousel = ({
+  products,
+  enableVariableWidth,
+}: ProductCarouselProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     dragFree: true,
     slidesToScroll: "auto",
@@ -85,11 +97,23 @@ const ProductCarousel = ({ products }: ProductCarouselProps) => {
     <StyledCarousel>
       <StyledViewport ref={emblaRef}>
         <StyledCarouselContainer>
-          {products.map((product) => (
-            <StyledCarouselItem key={product.id}>
-              <ProductCard />
-            </StyledCarouselItem>
-          ))}
+          {products.map((product) => {
+            if (enableVariableWidth && product.id === 0) {
+              return (
+                <StyledCarouselItem
+                  key={product.id}
+                  $enableVariableWidth={enableVariableWidth}
+                >
+                  <ProductCard isImageOnly />
+                </StyledCarouselItem>
+              );
+            }
+            return (
+              <StyledCarouselItem key={product.id}>
+                <ProductCard />
+              </StyledCarouselItem>
+            );
+          })}
         </StyledCarouselContainer>
       </StyledViewport>
 

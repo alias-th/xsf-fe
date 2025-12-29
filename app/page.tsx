@@ -1,5 +1,8 @@
 import Banner from "@/layouts/home/Banner";
 import Category from "@/layouts/home/Category";
+import Collection from "@/layouts/home/Collection";
+import DealProduct from "@/layouts/home/DealProduct";
+import Feature from "@/layouts/home/Feature";
 import HomeLayout from "@/layouts/home/HomeLayout";
 import LatestView from "@/layouts/home/LatestView";
 import PopularProduct from "@/layouts/home/PopularProdcut";
@@ -13,6 +16,9 @@ export default function Home() {
       <Category />
       <LatestView />
       <PopularProduct />
+      <DealProduct />
+      <Collection />
+      <Feature />
     </HomeLayout>
   );
 }

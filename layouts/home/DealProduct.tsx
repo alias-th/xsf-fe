@@ -28,7 +28,7 @@ const BgColor = styled.div`
   left: 0;
   width: 100%;
   height: 284px;
-  background-color: var(--color-4);
+  background-color: var(--color-1);
   z-index: -1;
 `;
 
@@ -38,7 +38,7 @@ const Header = styled.header`
   align-items: top;
 `;
 
-const PopularProduct = () => {
+const DealProduct = () => {
   const products = Array.from({ length: 24 }).map((_, index) => ({
     id: index + 1,
     name: `Product ${index + 1}`,
@@ -49,16 +49,27 @@ const PopularProduct = () => {
       <Container>
         <Header>
           <Center $width="fit-content" $height="48px">
-            <Typography $variant="h2" $lineHeight="1">
-              สินค้ายอดนิยม / แนะนำ
+            <Typography
+              $color="var(--color-7)"
+              $variant="h2"
+              $fontFamily="var(--font-poppins)"
+            >
+              X
+            </Typography>
+            <Typography
+              $color="var(--white-1)"
+              $variant="h2"
+              $fontFamily="var(--font-poppins)"
+            >
+              clusive Deal
             </Typography>
           </Center>
 
           <Center $width="fit-content" $height="24px" $gap="16px">
-            <Typography $variant="p" $color="var(--color-7)" $lineHeight="1">
+            <Typography $variant="p" $color="var(--white-1)" $lineHeight="1">
               สินค้าทั้งหมด
             </Typography>
-            <SMNextIcon />
+            <SMNextIcon color="var(--white-1)" />
           </Center>
         </Header>
         <ProductCarousel products={products} />
@@ -67,4 +78,4 @@ const PopularProduct = () => {
   );
 };
 
-export default PopularProduct;
+export default DealProduct;

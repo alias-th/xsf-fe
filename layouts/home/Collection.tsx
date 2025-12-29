@@ -19,7 +19,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px 0px;
-  gap: 12px;
+  gap: 56px;
 `;
 
 const BgColor = styled.div`
@@ -28,7 +28,7 @@ const BgColor = styled.div`
   left: 0;
   width: 100%;
   height: 284px;
-  background-color: var(--color-4);
+  background-color: var(--color-2);
   z-index: -1;
 `;
 
@@ -38,21 +38,44 @@ const Header = styled.header`
   align-items: top;
 `;
 
-const PopularProduct = () => {
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const Collection = () => {
   const products = Array.from({ length: 24 }).map((_, index) => ({
     id: index + 1,
     name: `Product ${index + 1}`,
   }));
+  const additionalProducts = [{ id: 0, name: "Featured Product" }, ...products];
   return (
     <Wrapper>
       <BgColor />
       <Container>
         <Header>
-          <Center $width="fit-content" $height="48px">
-            <Typography $variant="h2" $lineHeight="1">
-              สินค้ายอดนิยม / แนะนำ
-            </Typography>
-          </Center>
+          <TitleContainer>
+            <Center $width="fit-content" $height="36px">
+              <Typography
+                $color="var(--color-1)"
+                $variant="p-2xl"
+                $fontFamily="var(--font-poppins)"
+              >
+                Collections
+              </Typography>
+            </Center>
+            <Center>
+              <Typography
+                $color="var(--color-1)"
+                $variant="p"
+                $fontFamily="var(--font-prompt)"
+              >
+                <span>ค้นหาแรงบันดาลใจ ผ่านการออกแบบ</span> <br />
+                <span>และคัดสรรวัสดุที่น่าสนใจเข้าไว้ด้วยกัน</span>
+              </Typography>
+            </Center>
+          </TitleContainer>
 
           <Center $width="fit-content" $height="24px" $gap="16px">
             <Typography $variant="p" $color="var(--color-7)" $lineHeight="1">
@@ -61,10 +84,13 @@ const PopularProduct = () => {
             <SMNextIcon />
           </Center>
         </Header>
-        <ProductCarousel products={products} />
+        <ProductCarousel
+          products={additionalProducts}
+          enableVariableWidth={true}
+        />
       </Container>
     </Wrapper>
   );
 };
 
-export default PopularProduct;
+export default Collection;

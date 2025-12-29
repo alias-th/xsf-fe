@@ -14,9 +14,12 @@ const Wrapper = styled.div`
   overflow: auto;
 `;
 
-const ImageWrapper = styled.div`
+type imageWrapperProps = {
+  $height?: string;
+};
+const ImageWrapper = styled.div<imageWrapperProps>`
   width: 100%;
-  height: 200px;
+  height: ${({ $height }) => $height || "200px"};
   background-color: var(--color-2);
   padding: 10px 16px 0px 15px;
 `;
@@ -98,7 +101,18 @@ const ViewIcon = () => {
   );
 };
 
-const ProductCard = () => {
+type ProductCardProps = {
+  isImageOnly?: boolean;
+};
+const ProductCard = ({ isImageOnly }: ProductCardProps) => {
+  if (isImageOnly) {
+    return (
+      <Wrapper>
+        <ImageWrapper $height="100%"></ImageWrapper>
+      </Wrapper>
+    );
+  }
+
   return (
     <Wrapper>
       <ImageWrapper>

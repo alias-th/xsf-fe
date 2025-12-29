@@ -1,4 +1,6 @@
-import StyledCarouselButton from "@/components/CarouselButton";
+import StyledCarouselButton, {
+  StyledCarouselButtonProps,
+} from "@/components/CarouselButton";
 import { useDotButton } from "@/hooks/EmblaCarouselDotButton";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
@@ -28,18 +30,37 @@ const StyledCarouselItem = styled.div<StyledCarouselItemProps>`
   background-repeat: no-repeat;
 `;
 
-const StyledCarouselButtonContainer = styled.div`
+type StyledCarouselButtonContainerProps = {
+  $bottom?: string;
+  $gap?: string;
+};
+const StyledCarouselButtonContainer = styled.div<StyledCarouselButtonContainerProps>`
   position: absolute;
-  bottom: 24px;
+  bottom: ${({ $bottom }) => $bottom || "16px"};
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 16px;
+  gap: ${({ $gap }) => $gap || "16px"};
 `;
 
-const BannerCarousel = () => {
+type SimpleCarouselProps = {
+  images?: string[];
+  autoplay?: boolean;
+  containerButton?: StyledCarouselButtonContainerProps;
+  carouselButton?: Partial<StyledCarouselButtonProps>;
+};
+const SimpleCarousel = ({
+  autoplay = true,
+  images = [
+    "/assets/banner-3.jpg",
+    "/assets/banner-4.jpg",
+    "/assets/banner-5.jpg",
+  ],
+  containerButton,
+  carouselButton,
+}: SimpleCarouselProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({}, [
-    Autoplay({ playOnInit: true, delay: 5000 }),
+    Autoplay({ playOnInit: autoplay, delay: 5000 }),
   ]);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
@@ -52,12 +73,6 @@ const BannerCarousel = () => {
   //   onNextButtonClick,
   // } = usePrevNextButtons(emblaApi);
 
-  const images = [
-    "/assets/banner-3.jpg",
-    "/assets/banner-4.jpg",
-    "/assets/banner-5.jpg",
-  ];
-
   return (
     <StyledCarousel ref={emblaRef}>
       <StyledCarouselContainer>
@@ -65,12 +80,13 @@ const BannerCarousel = () => {
           <StyledCarouselItem key={image} $backgroundImage={image} />
         ))}
       </StyledCarouselContainer>
-      <StyledCarouselButtonContainer>
+      <StyledCarouselButtonContainer {...containerButton}>
         {scrollSnaps.map((_, index) => (
           <StyledCarouselButton
             key={index}
             $active={index === selectedIndex}
             onClick={() => onDotButtonClick(index)}
+            {...carouselButton}
           />
         ))}
       </StyledCarouselButtonContainer>
@@ -78,4 +94,4 @@ const BannerCarousel = () => {
   );
 };
 
-export default BannerCarousel;
+export default SimpleCarousel;

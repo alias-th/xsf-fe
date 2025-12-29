@@ -4,14 +4,11 @@ import Center from "@/components/Center";
 import { Typography } from "@/components/Typography";
 import UploadFile from "@/components/UploadFile";
 import styled from "styled-components";
-import InputItem from "./InputItem";
+import InputItem from "../../components/InputItem";
 import CustomButton from "@/components/Button";
 
 const Wrapper = styled.div`
   width: 100%;
-  max-width: 1240px;
-  margin: 50px auto;
-  gap: 32px;
   display: flex;
   flex-direction: column;
 `;
@@ -31,7 +28,7 @@ const InputContainer = styled.div`
 
 const UploadProduct = () => {
   return (
-    <Wrapper>
+    <>
       <Typography
         $fontFamily="var(--font-poppins)"
         $fontSize="32px"
@@ -95,7 +92,7 @@ const UploadProduct = () => {
           </Center>
         </Center>
       </UploadContainer>
-    </Wrapper>
+    </>
   );
 };
 

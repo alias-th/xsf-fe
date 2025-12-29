@@ -1,14 +1,16 @@
 import styled from "styled-components";
 
-type StyledCarouselButtonProps = {
+export type StyledCarouselButtonProps = {
   $active: boolean;
   $activeColor?: string;
   $inactiveColor?: string;
+  $height?: string;
+  $width?: string;
 };
 const StyledCarouselButton = styled.button<StyledCarouselButtonProps>`
   border-radius: 2px;
-  height: 4px;
-  width: 32px;
+  height: ${({ $height }) => $height || "4px"};
+  width: ${({ $width }) => $width || "32px"};
   background-color: ${(props) =>
     props.$active
       ? props.$activeColor || "var(--color-8)"

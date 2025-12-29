@@ -22,18 +22,20 @@ const WrapperInput = styled.div`
 
 type InputItemProps = {
   placeholder?: string;
-  label: string;
+  label?: string;
 };
 const InputItem = ({ placeholder, label }: InputItemProps) => {
   return (
     <Wrapper>
-      <Typography
-        $fontFamily="var(--font-poppins)"
-        $variant="p"
-        $lineHeight="1.5"
-      >
-        {label}
-      </Typography>
+      {label && (
+        <Typography
+          $fontFamily="var(--font-poppins)"
+          $variant="p"
+          $lineHeight="1.5"
+        >
+          {label}
+        </Typography>
+      )}
       <WrapperInput>
         <CustomInput
           placeholder={placeholder}

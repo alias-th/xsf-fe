@@ -4,6 +4,7 @@ import { Typography } from "./Typography";
 import SpaceBetween from "./SpaceBetween";
 import Center from "./Center";
 import ProductPrice from "./ProductPrice";
+import SimpleCarousel from "./SimpleCarousel";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -14,14 +15,16 @@ const Wrapper = styled.div`
   overflow: auto;
 `;
 
-type imageWrapperProps = {
+type ImageWrapperProps = {
+  $showCarouselActive?: boolean;
   $height?: string;
 };
-const ImageWrapper = styled.div<imageWrapperProps>`
+const ImageWrapper = styled.div<ImageWrapperProps>`
   width: 100%;
   height: ${({ $height }) => $height || "200px"};
   background-color: var(--color-2);
-  padding: 10px 16px 0px 15px;
+  padding: ${({ $showCarouselActive }) =>
+    $showCarouselActive ? "0px" : "10px 16px 0px 15px"};
 `;
 
 const InfoWrapper = styled.div`
@@ -103,8 +106,13 @@ const ViewIcon = () => {
 
 type ProductCardProps = {
   isImageOnly?: boolean;
+  showCarousel?: {
+    images: string[];
+  };
 };
-const ProductCard = ({ isImageOnly }: ProductCardProps) => {
+const ProductCard = ({ isImageOnly, showCarousel }: ProductCardProps) => {
+  const showCarouselActive = showCarousel && showCarousel.images.length > 1;
+
   if (isImageOnly) {
     return (
       <Wrapper>
@@ -115,31 +123,44 @@ const ProductCard = ({ isImageOnly }: ProductCardProps) => {
 
   return (
     <Wrapper>
-      <ImageWrapper>
-        <BadgeWrapper>
-          <BadgeDeal>
-            <Typography
-              $color="var(--color-7)"
-              $variant="p-xxs"
-              $lineHeight="1"
-              $fontFamily="var(--font-poppins)"
-              $fontWeight="500"
-            >
-              X
-            </Typography>
-            <Typography
-              $color="var(--white-1)"
-              $variant="p-xxs"
-              $lineHeight="1"
-              $fontFamily="var(--font-poppins)"
-              $fontWeight="500"
-            >
-              clusive Deal
-            </Typography>
-          </BadgeDeal>
-          <BadgeDiscount />
-        </BadgeWrapper>
+      {/* Image */}
+      <ImageWrapper $showCarouselActive={showCarouselActive}>
+        {!showCarouselActive && (
+          <BadgeWrapper>
+            <BadgeDeal>
+              <Typography
+                $color="var(--color-7)"
+                $variant="p-xxs"
+                $lineHeight="1"
+                $fontFamily="var(--font-poppins)"
+                $fontWeight="500"
+              >
+                X
+              </Typography>
+              <Typography
+                $color="var(--white-1)"
+                $variant="p-xxs"
+                $lineHeight="1"
+                $fontFamily="var(--font-poppins)"
+                $fontWeight="500"
+              >
+                clusive Deal
+              </Typography>
+            </BadgeDeal>
+            <BadgeDiscount />
+          </BadgeWrapper>
+        )}
+        {showCarouselActive && (
+          <SimpleCarousel
+            images={showCarousel.images}
+            autoplay={false}
+            containerButton={{ $bottom: "8px", $gap: "4px" }}
+            carouselButton={{ $height: "2px", $width: "16px" }}
+          />
+        )}
       </ImageWrapper>
+
+      {/* Info */}
       <InfoWrapper>
         <SpaceBetween>
           <Typography

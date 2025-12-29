@@ -1,5 +1,5 @@
 "use client";
-import BannerCarousel from "@/layouts/home/BannerCarousel";
+import BannerCarousel from "@/components/SimpleCarousel";
 import styled from "styled-components";
 
 const Wrapper = styled.section`

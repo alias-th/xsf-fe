@@ -39,3 +39,11 @@ export type Pagination = {
   has_next_page: boolean;
   has_previous_page: boolean;
 };
+
+export type DealList = {
+  id: string;
+  name: string;
+  description: string;
+  discount_percentage: number;
+  products: Product[];
+};

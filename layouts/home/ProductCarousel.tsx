@@ -7,6 +7,7 @@ import { usePrevNextButtons } from "@/hooks/EmblaCarouselArrowButtons";
 import { useDotButton } from "@/hooks/EmblaCarouselDotButton";
 import useEmblaCarousel from "embla-carousel-react";
 import styled from "styled-components";
+import * as Types from "@/types";
 
 const StyledCarousel = styled.div`
   display: flex;
@@ -71,7 +72,7 @@ const StyledCarouselNextButtonContainer = styled.div`
 `;
 
 type ProductCarouselProps = {
-  products: Array<any>;
+  products: Types.Product[];
   enableVariableWidth?: boolean;
 };
 const ProductCarousel = ({
@@ -98,19 +99,19 @@ const ProductCarousel = ({
       <StyledViewport ref={emblaRef}>
         <StyledCarouselContainer>
           {products.map((product) => {
-            if (enableVariableWidth && product.id === 0) {
+            if (enableVariableWidth && product.id === "0") {
               return (
                 <StyledCarouselItem
                   key={product.id}
                   $enableVariableWidth={enableVariableWidth}
                 >
-                  <ProductCard isImageOnly />
+                  <ProductCard isImageOnly product={product} />
                 </StyledCarouselItem>
               );
             }
             return (
               <StyledCarouselItem key={product.id}>
-                <ProductCard />
+                <ProductCard product={product} />
               </StyledCarouselItem>
             );
           })}

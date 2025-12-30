@@ -5,6 +5,8 @@ import SpaceBetween from "./SpaceBetween";
 import Center from "./Center";
 import ProductPrice from "./ProductPrice";
 import SimpleCarousel from "./SimpleCarousel";
+import * as Types from "@/types";
+import Image from "next/image";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -20,11 +22,12 @@ type ImageWrapperProps = {
   $height?: string;
 };
 const ImageWrapper = styled.div<ImageWrapperProps>`
+  position: relative;
   width: 100%;
   height: ${({ $height }) => $height || "200px"};
   background-color: var(--color-2);
   padding: ${({ $showCarouselActive }) =>
-    $showCarouselActive ? "0px" : "10px 16px 0px 15px"};
+    $showCarouselActive ? "0px" : "0px"};
 `;
 
 const InfoWrapper = styled.div`
@@ -35,7 +38,10 @@ const InfoWrapper = styled.div`
   gap: 4px;
 `;
 
-const BadgeDiscount = () => {
+type BadgeDiscountProps = {
+  discountPercentage?: number;
+};
+const BadgeDiscount = ({ discountPercentage }: BadgeDiscountProps) => {
   return (
     <svg
       width="34"
@@ -59,7 +65,7 @@ const BadgeDiscount = () => {
         fontWeight="500"
         fontStyle="medium"
       >
-        -50%
+        -{discountPercentage}%
       </text>
     </svg>
   );
@@ -68,6 +74,12 @@ const BadgeDiscount = () => {
 const BadgeWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding: 10px 16px 0px 15px;
 `;
 
 const AddIcon = () => {
@@ -105,13 +117,24 @@ const ViewIcon = () => {
 };
 
 type ProductCardProps = {
+  product: Types.Product;
   isImageOnly?: boolean;
   showCarousel?: {
     images: string[];
   };
 };
-const ProductCard = ({ isImageOnly, showCarousel }: ProductCardProps) => {
+const ProductCard = ({
+  isImageOnly,
+  showCarousel,
+  product,
+}: ProductCardProps) => {
   const showCarouselActive = showCarousel && showCarousel.images.length > 1;
+  const hasDiscount = product.deal && product.deal[0]?.discount_percentage > 0;
+  const discountPercentage = product.deal?.[0]?.discount_percentage;
+  const imageUrl = product.images?.[0] || "/images/placeholder.png";
+  const imageSrc = process.env.NEXT_PUBLIC_IMAGE_URL
+    ? `${process.env.NEXT_PUBLIC_IMAGE_URL}/${imageUrl}`
+    : imageUrl;
 
   if (isImageOnly) {
     return (
@@ -125,7 +148,7 @@ const ProductCard = ({ isImageOnly, showCarousel }: ProductCardProps) => {
     <Wrapper>
       {/* Image */}
       <ImageWrapper $showCarouselActive={showCarouselActive}>
-        {!showCarouselActive && (
+        {!showCarouselActive && hasDiscount && (
           <BadgeWrapper>
             <BadgeDeal>
               <Typography
@@ -147,7 +170,8 @@ const ProductCard = ({ isImageOnly, showCarousel }: ProductCardProps) => {
                 clusive Deal
               </Typography>
             </BadgeDeal>
-            <BadgeDiscount />
+
+            <BadgeDiscount discountPercentage={discountPercentage} />
           </BadgeWrapper>
         )}
         {showCarouselActive && (
@@ -156,6 +180,18 @@ const ProductCard = ({ isImageOnly, showCarousel }: ProductCardProps) => {
             autoplay={false}
             containerButton={{ $bottom: "8px", $gap: "4px" }}
             carouselButton={{ $height: "2px", $width: "16px" }}
+          />
+        )}
+        {!showCarouselActive && (
+          <Image
+            src={imageSrc}
+            alt={product.name}
+            width={201}
+            height={200}
+            style={{
+              objectFit: "cover",
+            }}
+            priority
           />
         )}
       </ImageWrapper>
@@ -170,7 +206,7 @@ const ProductCard = ({ isImageOnly, showCarousel }: ProductCardProps) => {
             $truncate
             $width="130px"
           >
-            Product Name Example That Is Very Long
+            {product.name}
           </Typography>
           <AddIcon />
         </SpaceBetween>
@@ -181,7 +217,7 @@ const ProductCard = ({ isImageOnly, showCarousel }: ProductCardProps) => {
             $fontFamily="var(--font-prompt)"
             $color="var(--color-8)"
           >
-            CODE1234
+            {product.code}
           </Typography>
           <Center $gap="4px">
             <ViewIcon />
@@ -191,7 +227,7 @@ const ProductCard = ({ isImageOnly, showCarousel }: ProductCardProps) => {
               $fontFamily="var(--font-prompt)"
               $color="var(--color-8)"
             >
-              1000
+              {product.view || 0}
             </Typography>
           </Center>
         </SpaceBetween>
@@ -204,19 +240,20 @@ const ProductCard = ({ isImageOnly, showCarousel }: ProductCardProps) => {
             $color="var(--color-8)"
             $lineHeight="1"
           >
-            กระจก
+            {product.category?.[0]?.name}
           </Typography>
           <Typography
             $fontSize="12px"
             $fontWeight="400"
             $fontFamily="var(--font-prompt)"
             $color="var(--color-1)"
+            $truncate
           >
-            W60 x H100 x D4.5 cm.
+            {product.category?.[0].description}
           </Typography>
         </div>
 
-        <ProductPrice />
+        <ProductPrice product={product} />
       </InfoWrapper>
     </Wrapper>
   );

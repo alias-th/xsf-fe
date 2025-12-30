@@ -25,7 +25,7 @@ const getCategories = unstable_cache(
   { revalidate: 60, tags: ["categories"] }
 );
 
-const getProducts = unstable_cache(
+const getPopularityProducts = unstable_cache(
   async () => {
     const response = await apiClient.get<{
       data: Types.Product[];
@@ -33,21 +33,51 @@ const getProducts = unstable_cache(
     }>("/products?limit=10&page=1&sortBy=view&sortOrder=ASC");
     return response.data;
   },
-  ["products"],
-  { revalidate: 60, tags: ["products"] }
+  ["popularity-products"],
+  { revalidate: 60, tags: ["popularity-products"] }
+);
+
+const getDealProducts = unstable_cache(
+  async () => {
+    const response = await apiClient.get<{
+      data: Types.DealList[];
+    }>("/deals/exclusive");
+    const deals = response.data;
+    const dealProducts: Types.Product[] = [];
+    for (const deal of deals.data) {
+      for (const product of deal.products) {
+        dealProducts.push({
+          ...product,
+          deal: [
+            {
+              id: deal.id,
+              description: deal.description,
+              discount_percentage: deal.discount_percentage,
+              name: deal.name,
+            },
+          ],
+        });
+      }
+    }
+    return dealProducts;
+  },
+  ["products-deal"],
+  { revalidate: 60, tags: ["products-deal"] }
 );
 
 export default async function Home() {
   const categories = await getCategories();
-  const products = await getProducts();
+  const popularityProducts = await getPopularityProducts();
+  const deals = await getDealProducts();
+
   return (
     <HomeLayout>
       <Navbar />
       <Banner />
       <Category categories={categories} />
-      <LatestView products={products} />
-      <PopularProduct products={products} />
-      <DealProduct />
+      <LatestView products={popularityProducts} />
+      <PopularProduct products={popularityProducts} />
+      <DealProduct products={deals} />
       <Collection />
       <Feature />
       <WorkWithUs />

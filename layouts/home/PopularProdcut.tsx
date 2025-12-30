@@ -47,10 +47,7 @@ type PopularProductProps = {
 };
 
 const PopularProduct = (props: PopularProductProps) => {
-  const products = Array.from({ length: 24 }).map((_, index) => ({
-    id: index + 1,
-    name: `Product ${index + 1}`,
-  }));
+  const { products } = props;
   return (
     <Wrapper>
       <BgColor />
@@ -69,7 +66,7 @@ const PopularProduct = (props: PopularProductProps) => {
             <SMNextIcon />
           </Center>
         </Header>
-        <ProductCarousel products={products} />
+        <ProductCarousel products={products.data} />
       </Container>
     </Wrapper>
   );

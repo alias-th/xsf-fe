@@ -49,23 +49,29 @@ const StyledButton = styled.button<StyledInputProps>`
   }
 `;
 
-const CustomButton = (props: StyledInputProps) => {
-  if (props.loading) {
+const CustomButton = ({
+  loading,
+  htmlType,
+  disabled,
+  onClick,
+  ...rest
+}: StyledInputProps) => {
+  if (loading) {
     return (
-      <StyledButton {...props} loading={undefined}>
+      <StyledButton {...rest} type={htmlType}>
         <Loading />
       </StyledButton>
     );
   }
   return (
     <StyledButton
-      disabled={props.disabled}
-      type={props.htmlType}
-      {...props}
-      loading={undefined}
+      {...rest}
+      type={htmlType}
+      onClick={onClick}
+      disabled={disabled}
     >
-      {props?.icon}
-      {props?.children}
+      {rest?.icon}
+      {rest?.children}
     </StyledButton>
   );
 };

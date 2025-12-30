@@ -8,7 +8,11 @@ import SimpleCarousel from "./SimpleCarousel";
 import * as Types from "@/types";
 import Image from "next/image";
 
-const Wrapper = styled.div`
+type WrapperProps = {
+  $width?: string;
+};
+export const Wrapper = styled.div<WrapperProps>`
+  width: ${({ $width }) => $width || "200px"};
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -21,16 +25,14 @@ type ImageWrapperProps = {
   $showCarouselActive?: boolean;
   $height?: string;
 };
-const ImageWrapper = styled.div<ImageWrapperProps>`
+export const ImageWrapper = styled.div<ImageWrapperProps>`
   position: relative;
   width: 100%;
   height: ${({ $height }) => $height || "200px"};
-  background-color: var(--color-2);
-  padding: ${({ $showCarouselActive }) =>
-    $showCarouselActive ? "0px" : "0px"};
+  background-color: var(--color-3);
 `;
 
-const InfoWrapper = styled.div`
+export const InfoWrapper = styled.div`
   height: 140px;
   padding: 10px 15px;
   display: flex;
@@ -119,16 +121,14 @@ const ViewIcon = () => {
 type ProductCardProps = {
   product: Types.Product;
   isImageOnly?: boolean;
-  showCarousel?: {
-    images: string[];
-  };
+  showCarousel?: boolean;
 };
 const ProductCard = ({
   isImageOnly,
   showCarousel,
   product,
 }: ProductCardProps) => {
-  const showCarouselActive = showCarousel && showCarousel.images.length > 1;
+  const showCarouselActive = showCarousel && product.images.length > 1;
   const hasDiscount = product.deal && product.deal[0]?.discount_percentage > 0;
   const discountPercentage = product.deal?.[0]?.discount_percentage;
   const imageUrl = product.images?.[0] || "/images/placeholder.png";
@@ -138,8 +138,19 @@ const ProductCard = ({
 
   if (isImageOnly) {
     return (
-      <Wrapper>
-        <ImageWrapper $height="100%"></ImageWrapper>
+      <Wrapper $width="100%">
+        <ImageWrapper $height="100%">
+          <Image
+            src={imageSrc}
+            alt={product.name}
+            fill
+            style={{
+              objectFit: "cover",
+            }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
+          />
+        </ImageWrapper>
       </Wrapper>
     );
   }
@@ -176,7 +187,7 @@ const ProductCard = ({
         )}
         {showCarouselActive && (
           <SimpleCarousel
-            images={showCarousel.images}
+            images={product.images}
             autoplay={false}
             containerButton={{ $bottom: "8px", $gap: "4px" }}
             carouselButton={{ $height: "2px", $width: "16px" }}
@@ -186,11 +197,11 @@ const ProductCard = ({
           <Image
             src={imageSrc}
             alt={product.name}
-            width={201}
-            height={200}
+            fill
             style={{
               objectFit: "cover",
             }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority
           />
         )}
@@ -232,7 +243,7 @@ const ProductCard = ({
           </Center>
         </SpaceBetween>
 
-        <div>
+        <div style={{ minHeight: 30 }}>
           <Typography
             $fontSize="10px"
             $fontWeight="400"
@@ -249,7 +260,7 @@ const ProductCard = ({
             $color="var(--color-1)"
             $truncate
           >
-            {product.category?.[0].description}
+            {product.category?.[0]?.description}
           </Typography>
         </div>
 

@@ -30,7 +30,7 @@ const getPopularityProducts = unstable_cache(
     const response = await apiClient.get<{
       data: Types.Product[];
       pagination: Types.Pagination;
-    }>("/products?limit=10&page=1&sortBy=view&sortOrder=ASC");
+    }>("/products?limit=20&page=1&sortBy=view&sortOrder=ASC");
     return response.data;
   },
   ["popularity-products"],
@@ -40,25 +40,25 @@ const getPopularityProducts = unstable_cache(
 const getDealProducts = unstable_cache(
   async () => {
     const response = await apiClient.get<{
-      data: Types.DealList[];
+      data: Types.DealList;
     }>("/deals/exclusive");
-    const deals = response.data;
+    const deal = response.data;
     const dealProducts: Types.Product[] = [];
-    for (const deal of deals.data) {
-      for (const product of deal.products) {
-        dealProducts.push({
-          ...product,
-          deal: [
-            {
-              id: deal.id,
-              description: deal.description,
-              discount_percentage: deal.discount_percentage,
-              name: deal.name,
-            },
-          ],
-        });
-      }
+
+    for (const product of deal.data.products) {
+      dealProducts.push({
+        ...product,
+        deal: [
+          {
+            id: deal.data.id,
+            description: deal.data.description,
+            discount_percentage: deal.data.discount_percentage,
+            name: deal.data.name,
+          },
+        ],
+      });
     }
+
     return dealProducts;
   },
   ["products-deal"],
@@ -78,7 +78,7 @@ export default async function Home() {
       <LatestView products={popularityProducts} />
       <PopularProduct products={popularityProducts} />
       <DealProduct products={deals} />
-      <Collection />
+      <Collection products={popularityProducts} />
       <Feature />
       <WorkWithUs />
       <Footer />

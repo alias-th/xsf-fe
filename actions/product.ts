@@ -2,6 +2,7 @@
 
 import apiClient from "@/lib/axios";
 import { isAxiosError } from "axios";
+import * as Types from "@/types/index";
 
 type Response = {
   status: number;
@@ -32,4 +33,30 @@ const createProduct = async (form: FormData) => {
   }
 };
 
-export { createProduct };
+const getProducts = async (query: {
+  page?: number;
+  limit?: number;
+  sortOrder?: string;
+  sortBy?: string;
+}) => {
+  try {
+    const res = await apiClient.get<{ data: Types.Product[] }>("/products", {
+      params: query,
+    });
+    return { data: res.data.data };
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.log(
+        "Axios error creating product:",
+        error.response?.data || error.message
+      );
+      return {
+        status: error.response?.status,
+        error: error.response?.data.error || error.message,
+      };
+    }
+    return { status: 500, error: "Unknown error occurred" };
+  }
+};
+
+export { createProduct, getProducts };

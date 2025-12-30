@@ -98,8 +98,8 @@ const ProductCarousel = ({
     <StyledCarousel>
       <StyledViewport ref={emblaRef}>
         <StyledCarouselContainer>
-          {products.map((product) => {
-            if (enableVariableWidth && product.id === "0") {
+          {products.map((product, index) => {
+            if (enableVariableWidth && index === 0) {
               return (
                 <StyledCarouselItem
                   key={product.id}

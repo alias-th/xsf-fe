@@ -43,7 +43,6 @@ type DealProductProps = {
   products: Types.Product[];
 };
 const DealProduct = ({ products }: DealProductProps) => {
-  console.log(products, "deal products");
   // const products = Array.from({ length: 24 }).map((_, index) => ({
   //   id: index + 1,
   //   name: `Product ${index + 1}`,

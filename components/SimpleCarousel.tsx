@@ -51,11 +51,7 @@ type SimpleCarouselProps = {
 };
 const SimpleCarousel = ({
   autoplay = true,
-  images = [
-    "/assets/banner-3.jpg",
-    "/assets/banner-4.jpg",
-    "/assets/banner-5.jpg",
-  ],
+  images = [],
   containerButton,
   carouselButton,
 }: SimpleCarouselProps) => {
@@ -65,6 +61,15 @@ const SimpleCarousel = ({
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
+
+  const imagesToShow =
+    images.length > 0
+      ? images.map((img) => `${process.env.NEXT_PUBLIC_IMAGE_URL}/${img}`)
+      : [
+          "/assets/banner-3.jpg",
+          "/assets/banner-4.jpg",
+          "/assets/banner-5.jpg",
+        ];
 
   // const {
   //   prevBtnDisabled,
@@ -76,7 +81,7 @@ const SimpleCarousel = ({
   return (
     <StyledCarousel ref={emblaRef}>
       <StyledCarouselContainer>
-        {images.map((image) => (
+        {imagesToShow.map((image) => (
           <StyledCarouselItem key={image} $backgroundImage={image} />
         ))}
       </StyledCarouselContainer>

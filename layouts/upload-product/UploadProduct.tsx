@@ -192,6 +192,7 @@ const UploadProduct = () => {
           />
 
           <form
+            id="add-product"
             style={{ width: "100%" }}
             onSubmit={handleSubmit(onValid, onInvalid)}
           >

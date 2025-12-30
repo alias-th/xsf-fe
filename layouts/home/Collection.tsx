@@ -5,6 +5,7 @@ import styled from "styled-components";
 import ProductCarousel from "./ProductCarousel";
 import Center from "@/components/Center";
 import SMNextIcon from "@/components/Icons/SmNextIcon";
+import * as Types from "@/types";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -44,12 +45,14 @@ const TitleContainer = styled.div`
   gap: 8px;
 `;
 
-const Collection = () => {
-  const products = Array.from({ length: 24 }).map((_, index) => ({
-    id: index + 1,
-    name: `Product ${index + 1}`,
-  }));
-  const additionalProducts = [{ id: 0, name: "Featured Product" }, ...products];
+type CollectionProps = {
+  products: {
+    data: Types.Product[];
+    pagination: Types.Pagination;
+  };
+};
+
+const Collection = ({ products }: CollectionProps) => {
   return (
     <Wrapper>
       <BgColor />
@@ -84,10 +87,7 @@ const Collection = () => {
             <SMNextIcon />
           </Center>
         </Header>
-        <ProductCarousel
-          products={additionalProducts}
-          enableVariableWidth={true}
-        />
+        <ProductCarousel products={products.data} enableVariableWidth={true} />
       </Container>
     </Wrapper>
   );

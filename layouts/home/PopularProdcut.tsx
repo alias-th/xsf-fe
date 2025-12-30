@@ -5,6 +5,7 @@ import styled from "styled-components";
 import ProductCarousel from "./ProductCarousel";
 import Center from "@/components/Center";
 import SMNextIcon from "@/components/Icons/SmNextIcon";
+import * as Types from "@/types";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -38,7 +39,14 @@ const Header = styled.header`
   align-items: top;
 `;
 
-const PopularProduct = () => {
+type PopularProductProps = {
+  products: {
+    data: Types.Product[];
+    pagination: Types.Pagination;
+  };
+};
+
+const PopularProduct = (props: PopularProductProps) => {
   const products = Array.from({ length: 24 }).map((_, index) => ({
     id: index + 1,
     name: `Product ${index + 1}`,

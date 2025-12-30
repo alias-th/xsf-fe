@@ -42,7 +42,7 @@ const Category = ({
       id: "all-products",
       name: "All Products",
       description: "All Products",
-      imageUrl: "https://pub-8aa8b480403f4da0bac5a9e73a4cf84c.r2.dev/wood.jpg",
+      imageUrl: "wood.jpg",
     });
 
     return transformedCategories;

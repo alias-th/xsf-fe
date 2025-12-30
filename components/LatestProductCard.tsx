@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { Typography } from "./Typography";
 import SingleLineText from "./TextTruncate";
+import * as Types from "@/types";
+import Image from "next/image";
 
-const ImageContainer = styled.img`
-  height: 128px;
+const ImageContainer = styled(Image)`
   border-radius: 16px;
   border: 1px solid #e0e0e0;
+  object-fit: cover;
 `;
 
 const TextContainer = styled.div`
@@ -20,19 +22,30 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   gap: 8px;
+  cursor: pointer;
 `;
 
-const LatestProductCard = () => {
+type LatestProductCardProps = {
+  product: Types.Product;
+};
+const LatestProductCard = ({ product }: LatestProductCardProps) => {
+  const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL + "/" + product.images[0];
   return (
     <Wrapper>
-      <ImageContainer src="/assets/placeholder-1.png" alt="Sample Product" />
+      <ImageContainer
+        priority
+        src={imageUrl || "/assets/placeholder-1.png"}
+        alt={product.name}
+        width={128}
+        height={128}
+      />
       <Typography
         $variant="span"
         $fontFamily="var(--font-poppins)"
         $width="92px"
         $truncate
       >
-        Product name test
+        {product.name}
       </Typography>
 
       <TextContainer>
@@ -41,7 +54,7 @@ const LatestProductCard = () => {
           $variant="h3"
           $color="var(--color-1)"
         >
-          ฿550
+          {`฿${product.pricing.price_per_unit.toLocaleString()}`}
         </Typography>
         <Typography
           $fontFamily="var(--font-prompt)"

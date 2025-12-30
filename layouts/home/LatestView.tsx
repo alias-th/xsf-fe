@@ -3,6 +3,7 @@
 import { Typography } from "@/components/Typography";
 import styled from "styled-components";
 import LatestCarousel from "./LatestCarousel";
+import * as Types from "@/types";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -14,13 +15,19 @@ const Wrapper = styled.section`
   gap: 24px;
 `;
 
-const LatestView = () => {
+type LatestViewProps = {
+  products: {
+    data: Types.Product[];
+    pagination: Types.Pagination;
+  };
+};
+const LatestView = (props: LatestViewProps) => {
   return (
     <Wrapper>
       <Typography $variant="p-2xl" $fontFamily="var(--font-prompt)">
         ดูล่าสุด
       </Typography>
-      <LatestCarousel />
+      <LatestCarousel products={props.products} />
     </Wrapper>
   );
 };

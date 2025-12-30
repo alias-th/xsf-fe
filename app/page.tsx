@@ -10,14 +10,14 @@ import PopularProduct from "@/layouts/home/PopularProdcut";
 import WorkWithUs from "@/layouts/home/WorkWithUs";
 import Navbar from "@/layouts/navbar/Navbar";
 import apiClient from "@/lib/axios";
-import { Pagination, Category as CategoryType } from "@/types";
+import * as Types from "@/types";
 import { unstable_cache } from "next/cache";
 
 const getCategories = unstable_cache(
   async () => {
     const response = await apiClient.get<{
-      data: CategoryType[];
-      pagination: Pagination;
+      data: Types.Category[];
+      pagination: Types.Pagination;
     }>("/categories");
     return response.data;
   },
@@ -25,15 +25,28 @@ const getCategories = unstable_cache(
   { revalidate: 60, tags: ["categories"] }
 );
 
+const getProducts = unstable_cache(
+  async () => {
+    const response = await apiClient.get<{
+      data: Types.Product[];
+      pagination: Types.Pagination;
+    }>("/products?limit=10&page=1&sortBy=view&sortOrder=ASC");
+    return response.data;
+  },
+  ["products"],
+  { revalidate: 60, tags: ["products"] }
+);
+
 export default async function Home() {
   const categories = await getCategories();
+  const products = await getProducts();
   return (
     <HomeLayout>
       <Navbar />
       <Banner />
       <Category categories={categories} />
-      <LatestView />
-      <PopularProduct />
+      <LatestView products={products} />
+      <PopularProduct products={products} />
       <DealProduct />
       <Collection />
       <Feature />

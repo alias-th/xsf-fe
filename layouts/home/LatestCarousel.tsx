@@ -7,6 +7,7 @@ import { usePrevNextButtons } from "@/hooks/EmblaCarouselArrowButtons";
 import { useDotButton } from "@/hooks/EmblaCarouselDotButton";
 import useEmblaCarousel from "embla-carousel-react";
 import styled from "styled-components";
+import * as Types from "@/types";
 
 const StyledCarousel = styled.div`
   display: flex;
@@ -61,7 +62,13 @@ const StyledCarouselPrevButtonContainer = styled.div`
   transform: translateY(-50%);
 `;
 
-const LatestCarousel = () => {
+type LatestCarouselProps = {
+  products: {
+    data: Types.Product[];
+    pagination: Types.Pagination;
+  };
+};
+const LatestCarousel = ({ products }: LatestCarouselProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     dragFree: true,
     slidesToScroll: "auto",
@@ -78,18 +85,18 @@ const LatestCarousel = () => {
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
 
-  const products = Array.from({ length: 24 }).map((_, index) => ({
-    id: index + 1,
-    name: `Product ${index + 1}`,
-  }));
+  // const products = Array.from({ length: 24 }).map((_, index) => ({
+  //   id: index + 1,
+  //   name: `Product ${index + 1}`,
+  // }));
 
   return (
     <StyledCarousel>
       <StyledViewport ref={emblaRef}>
         <StyledCarouselContainer>
-          {products.map((product) => (
+          {products.data.map((product) => (
             <StyledCarouselItem key={product.id}>
-              <LatestProductCard />
+              <LatestProductCard product={product} />
             </StyledCarouselItem>
           ))}
         </StyledCarouselContainer>

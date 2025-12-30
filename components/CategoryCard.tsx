@@ -23,9 +23,15 @@ type CategoryCardProps = {
   imageUrl: string;
 };
 const CategoryCard = ({ title, imageUrl }: CategoryCardProps) => {
+  const imageSrc = process.env.NEXT_PUBLIC_IMAGE_URL + "/" + imageUrl;
   return (
     <Wrapper>
-      <ImageContainer src={imageUrl} alt={title} width={96} height={96} />
+      <ImageContainer
+        src={imageSrc || "/assets/placeholder-1.png"}
+        alt={title}
+        width={96}
+        height={96}
+      />
       <Typography
         $color="var(--text)"
         $variant="p"

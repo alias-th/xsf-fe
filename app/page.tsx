@@ -9,13 +9,29 @@ import LatestView from "@/layouts/home/LatestView";
 import PopularProduct from "@/layouts/home/PopularProdcut";
 import WorkWithUs from "@/layouts/home/WorkWithUs";
 import Navbar from "@/layouts/navbar/Navbar";
+import apiClient from "@/lib/axios";
+import { Pagination, Category as CategoryType } from "@/types";
+import { unstable_cache } from "next/cache";
 
-export default function Home() {
+const getCategories = unstable_cache(
+  async () => {
+    const response = await apiClient.get<{
+      data: CategoryType[];
+      pagination: Pagination;
+    }>("/categories");
+    return response.data;
+  },
+  ["categories"],
+  { revalidate: 60, tags: ["categories"] }
+);
+
+export default async function Home() {
+  const categories = await getCategories();
   return (
     <HomeLayout>
       <Navbar />
       <Banner />
-      <Category />
+      <Category categories={categories} />
       <LatestView />
       <PopularProduct />
       <DealProduct />

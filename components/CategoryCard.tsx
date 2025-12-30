@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Typography } from "./Typography";
+import Image from "next/image";
 
 const Wrapper = styled.div`
   display: flex;
@@ -10,7 +11,7 @@ const Wrapper = styled.div`
   cursor: pointer;
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled(Image)`
   width: 96px;
   height: 96px;
   background-color: var(--color-6);
@@ -24,7 +25,7 @@ type CategoryCardProps = {
 const CategoryCard = ({ title, imageUrl }: CategoryCardProps) => {
   return (
     <Wrapper>
-      <ImageContainer />
+      <ImageContainer src={imageUrl} alt={title} width={96} height={96} />
       <Typography
         $color="var(--text)"
         $variant="p"

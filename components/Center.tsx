@@ -7,6 +7,8 @@ type CenterProps = {
   $gap?: string;
   $justifyContent?: string;
   $alignItems?: string;
+  $backgroundColor?: string;
+  $flex?: string;
 };
 const Center = styled.div<CenterProps>`
   display: flex;
@@ -15,7 +17,9 @@ const Center = styled.div<CenterProps>`
   height: ${({ $height }) => $height || "auto"};
   width: ${({ $width }) => $width || "auto"};
   gap: ${({ $gap }) => $gap || "0"};
+  background-color: ${({ $backgroundColor }) => $backgroundColor || "none"};
   flex-direction: ${({ $direction }) => $direction || "row"};
+  flex: ${({ $flex }) => $flex || "initial"};
 `;
 
 export default Center;

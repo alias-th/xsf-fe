@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Center from "./Center";
 import { Typography } from "./Typography";
+import { DropzoneInputProps, DropzoneRootProps } from "react-dropzone";
+import { FieldError, Merge, UseFormRegisterReturn } from "react-hook-form";
 
 const Wrapper = styled.div`
   display: flex;
@@ -8,14 +10,20 @@ const Wrapper = styled.div`
   width: 100%;
   gap: 8px;
 `;
-const UploadContainer = styled.div`
+
+type UploadContainerProps = {
+  required: boolean;
+};
+const UploadContainer = styled.div<UploadContainerProps>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   border-radius: 24px;
-  border: 2px dashed var(--border-1);
+  border: ${(props) =>
+    props.required ? "2px dashed var(--color-7)" : "2px dashed var(--color-3)"};
   height: 350px;
+  cursor: pointer;
 `;
 
 const UploadIcon = () => {
@@ -36,10 +44,32 @@ const UploadIcon = () => {
     </svg>
   );
 };
-const UploadFile = () => {
+
+type UploadFileProps = {
+  // hook form
+  error: Merge<FieldError, (FieldError | undefined)[]> | undefined;
+  register?: UseFormRegisterReturn<string>;
+
+  // dropzone
+  acceptedFileCount?: number;
+  dropZoneProps: {
+    getRootProps: <T extends DropzoneRootProps>(props?: T) => T;
+    getInputProps: <T extends DropzoneInputProps>(props?: T) => T;
+  };
+};
+const UploadFile = ({
+  dropZoneProps,
+  acceptedFileCount,
+  register,
+  error,
+}: UploadFileProps) => {
+  const { getRootProps, getInputProps } = dropZoneProps;
   return (
     <Wrapper>
-      <UploadContainer>
+      <UploadContainer
+        {...getRootProps()}
+        required={!!register?.name && !!error}
+      >
         <Center $gap="24px" $direction="column">
           <UploadIcon />
           <Center $direction="column" $gap="24px">
@@ -66,6 +96,19 @@ const UploadFile = () => {
             >
               JPG. or PNG Maximum file size 50MB.
             </Typography>
+
+            <input {...getInputProps()} />
+
+            {/* react-hook-form */}
+            <input
+              {...register}
+              style={{
+                width: 0,
+                height: 0,
+                pointerEvents: "none",
+                border: "none",
+              }}
+            />
           </Center>
         </Center>
       </UploadContainer>
@@ -76,7 +119,7 @@ const UploadFile = () => {
           $color="var(--color-1)"
           $fontSize="12px"
         >
-          Image upload (0/6)
+          Image upload ({acceptedFileCount ?? 0}/6)
         </Typography>
       </Center>
     </Wrapper>

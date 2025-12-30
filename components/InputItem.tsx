@@ -1,6 +1,9 @@
 import CustomInput from "@/components/Input";
 import { Typography } from "@/components/Typography";
+import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import styled from "styled-components";
+import Center from "./Center";
+import { HTMLInputTypeAttribute } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -23,8 +26,17 @@ const WrapperInput = styled.div`
 type InputItemProps = {
   placeholder?: string;
   label?: string;
+  register?: UseFormRegisterReturn<string>;
+  error?: FieldError;
+  type?: HTMLInputTypeAttribute;
 };
-const InputItem = ({ placeholder, label }: InputItemProps) => {
+const InputItem = ({
+  placeholder,
+  label,
+  register,
+  error,
+  type,
+}: InputItemProps) => {
   return (
     <Wrapper>
       {label && (
@@ -38,9 +50,22 @@ const InputItem = ({ placeholder, label }: InputItemProps) => {
       )}
       <WrapperInput>
         <CustomInput
+          type={type || "text"}
           placeholder={placeholder}
           $placeholderColor="var(--color-3)"
+          {...register}
         />
+        {error && (
+          <Center $flex="0 0 auto" $justifyContent="flex-end">
+            <Typography
+              $fontSize="12px"
+              $fontFamily="var(--font-poppins)"
+              $color="var(--color-9)"
+            >
+              {error.message}
+            </Typography>
+          </Center>
+        )}
       </WrapperInput>
     </Wrapper>
   );

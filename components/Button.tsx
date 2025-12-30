@@ -1,3 +1,4 @@
+"use client";
 import styled from "styled-components";
 import { Typography } from "./Typography";
 import { JSX } from "react";
@@ -15,6 +16,7 @@ interface StyledInputProps {
   $border?: string;
   $gap?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 const StyledButton = styled.button<StyledInputProps>`
@@ -31,11 +33,17 @@ const StyledButton = styled.button<StyledInputProps>`
   margin-left: ${(props) => props.$marginLeft || "0px"};
   border-radius: ${(props) => props.$borderRadius || "24px"};
   border: ${(props) => props.$border || "none"};
+
+  &:disabled {
+    color: var(--white-1);
+    background-color: var(--color-3);
+    cursor: not-allowed;
+  }
 `;
 
 const CustomButton = (props: StyledInputProps) => {
   return (
-    <StyledButton {...props}>
+    <StyledButton disabled={props.disabled} {...props}>
       {props?.icon}
       {props?.children}
     </StyledButton>

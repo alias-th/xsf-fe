@@ -21,6 +21,15 @@ const CustomInput = styled.input<StyledInputProps>`
   outline: none;
   font-weight: 400;
 
+  /* &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+    -webkit-text-fill-color: var(--color-1) !important;
+    transition: background-color 5000s ease-in-out 0s;
+  } */
+
   &::placeholder {
     color: ${(props) => props.$placeholderColor || "var(--color-5)"};
     font-family: var(--font-prompt);

@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import { Typography } from "./Typography";
 import { JSX } from "react";
+import Loading from "./Loading";
 
 interface StyledInputProps {
   $marginLeft?: string;
@@ -17,6 +18,8 @@ interface StyledInputProps {
   $gap?: string;
   onClick?: () => void;
   disabled?: boolean;
+  loading?: boolean;
+  htmlType?: "button" | "submit" | "reset";
 }
 
 const StyledButton = styled.button<StyledInputProps>`
@@ -39,11 +42,28 @@ const StyledButton = styled.button<StyledInputProps>`
     background-color: var(--color-3);
     cursor: not-allowed;
   }
+
+  &:hover {
+    opacity: 0.7;
+    transition: all 0.3s ease-in-out;
+  }
 `;
 
 const CustomButton = (props: StyledInputProps) => {
+  if (props.loading) {
+    return (
+      <StyledButton {...props} loading={undefined}>
+        <Loading />
+      </StyledButton>
+    );
+  }
   return (
-    <StyledButton disabled={props.disabled} {...props}>
+    <StyledButton
+      disabled={props.disabled}
+      type={props.htmlType}
+      {...props}
+      loading={undefined}
+    >
       {props?.icon}
       {props?.children}
     </StyledButton>

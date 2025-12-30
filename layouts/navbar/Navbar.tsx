@@ -6,6 +6,7 @@ import NavItem from "./NavItem";
 import CustomButton from "@/components/Button";
 import { Typography } from "@/components/Typography";
 import Image from "next/image";
+import Link from "next/link";
 
 const Wrapper = styled.nav`
   width: 100%;
@@ -36,13 +37,15 @@ const MoreOptionsIcon = () => {
 const Navbar = () => {
   return (
     <Wrapper>
-      <Image
-        src="/assets/logo.svg"
-        alt="Logo"
-        width={155}
-        height={30}
-        loading="eager"
-      />
+      <Link href="/">
+        <Image
+          src="/assets/logo.svg"
+          alt="Logo"
+          width={155}
+          height={30}
+          loading="eager"
+        />
+      </Link>
       <SearchBar />
       <NavItem />
       <CustomButton

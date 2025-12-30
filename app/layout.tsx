@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Prompt, Poppins } from "next/font/google";
 import GlobalStyle from "@/styles/GlobalStyles";
 import StyledComponentsRegistry from "@/lib/registry";
+import QueryClientWrapper from "@/layouts/react-query/QueryClientWrapper";
+import { Toaster } from "react-hot-toast";
 
 const prompt = Prompt({
   subsets: ["latin"],
@@ -28,10 +30,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${prompt.variable} ${poppins.variable}`}>
-        <StyledComponentsRegistry>
-          <GlobalStyle />
-          {children}
-        </StyledComponentsRegistry>
+        <QueryClientWrapper>
+          <StyledComponentsRegistry>
+            <GlobalStyle />
+            <Toaster />
+            {children}
+          </StyledComponentsRegistry>
+        </QueryClientWrapper>
       </body>
     </html>
   );

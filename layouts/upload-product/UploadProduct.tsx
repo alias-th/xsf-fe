@@ -11,6 +11,10 @@ import { useCallback, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import FileList from "./FileList";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { createProduct } from "@/actions/product";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
 const UploadContainer = styled.div`
   width: 100%;
@@ -61,7 +65,28 @@ const UploadProduct = () => {
     formState: { errors },
     setValue,
     trigger,
+    reset,
+    clearErrors,
   } = useForm<Inputs>();
+  const resetForm = () => {
+    setFiles([]);
+    setFilesErrors([]);
+    reset({ images: "", code: "", price: "", productName: "" });
+  };
+  const mutation = useMutation({
+    mutationFn: createProduct,
+    onSuccess: (data) => {
+      if (data.error) {
+        toast.error(`Error: ${data.error}`);
+        return;
+      }
+      toast.success("Product created successfully!");
+      resetForm();
+    },
+    onError: (error: AxiosError) => {
+      toast.error(`Error: ${error.response?.data || error.message}`);
+    },
+  });
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     validator: fileValidator,
     onDrop: (acceptedFiles, fileRejections) => {
@@ -110,6 +135,8 @@ const UploadProduct = () => {
   const acceptedFileCount = files.length;
 
   const onValid: SubmitHandler<Inputs> = (data) => {
+    if (mutation.isPending) return;
+
     const formData = new FormData();
     for (const item of files) {
       formData.append("files", item.file);
@@ -117,6 +144,8 @@ const UploadProduct = () => {
     formData.append("name", data.productName);
     formData.append("code", data.code);
     formData.append("price", data.price);
+
+    mutation.mutate(formData);
   };
 
   const onInvalid: SubmitErrorHandler<Inputs> = (error) => {
@@ -164,14 +193,7 @@ const UploadProduct = () => {
 
           <form
             style={{ width: "100%" }}
-            onSubmit={handleSubmit(
-              (data) => {
-                console.log(data);
-              },
-              (error) => {
-                console.log(error);
-              }
-            )}
+            onSubmit={handleSubmit(onValid, onInvalid)}
           >
             <InputContainer>
               <InputItem
@@ -188,6 +210,7 @@ const UploadProduct = () => {
                 register={register("code", {
                   required: "Required",
                   maxLength: { value: 10, message: "Max length is 10" },
+                  minLength: { value: 6, message: "Min length is 6" },
                 })}
                 error={errors.code}
               />
@@ -215,10 +238,15 @@ const UploadProduct = () => {
               $justifyContent="center"
             >
               <CustomButton
+                htmlType="button"
                 $width="190px"
                 $height="56px"
                 $border="1px solid var(--color-3)"
                 $backgroundColor="var(--white-1)"
+                onClick={() => {
+                  clearErrors();
+                  resetForm();
+                }}
               >
                 <Typography $variant="p" $fontFamily="var(--font-prompt)">
                   ยกเลิก
@@ -228,6 +256,7 @@ const UploadProduct = () => {
                 $width="190px"
                 $height="56px"
                 $backgroundColor="var(--color-14)"
+                loading={mutation.isPending}
               >
                 <Typography
                   $variant="p"

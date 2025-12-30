@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const WrapperInput = styled.div`
+const WrapperInput = styled.label`
   height: 56px;
   width: 100%;
   padding: 12px 24px 12px 24px;
@@ -21,6 +21,7 @@ const WrapperInput = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: text;
 `;
 
 type InputItemProps = {
@@ -48,11 +49,13 @@ const InputItem = ({
           {label}
         </Typography>
       )}
-      <WrapperInput>
+      <WrapperInput htmlFor={register?.name}>
         <CustomInput
+          autoComplete="off"
           type={type || "text"}
           placeholder={placeholder}
           $placeholderColor="var(--color-3)"
+          id={register?.name}
           {...register}
         />
         {error && (

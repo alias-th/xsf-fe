@@ -102,6 +102,7 @@ const UploadFile = ({
             {/* react-hook-form */}
             <input
               {...register}
+              autoComplete="off"
               style={{
                 width: 0,
                 height: 0,

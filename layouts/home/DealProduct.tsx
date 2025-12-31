@@ -57,13 +57,14 @@ const DealProduct = ({ dealProducts }: DealProductProps) => {
         createdAt: "",
         updatedAt: "",
         pricing: dealProduct.pricing,
-        deal: [dealProduct.deal],
+        deal: dealProduct.deal,
         view: dealProduct.view,
-        category: [dealProduct.category],
+        category: dealProduct.category,
       });
     }
     return products;
   }, [dealProducts]);
+
   return (
     <Wrapper>
       <BgColor />

@@ -11,9 +11,9 @@ export type Product = {
     price_per_unit: number;
     unit_label: string;
   };
-  deal: Deal[];
+  deal: Deal;
   view: number;
-  category: Category[];
+  category: Category;
 };
 
 export type Deal = {

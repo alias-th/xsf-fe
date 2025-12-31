@@ -129,8 +129,8 @@ const ProductCard = ({
   product,
 }: ProductCardProps) => {
   const showCarouselActive = showCarousel && product.images.length > 1;
-  const hasDiscount = product.deal && product.deal[0]?.discount_percentage > 0;
-  const discountPercentage = product.deal?.[0]?.discount_percentage;
+  const hasDiscount = product.deal && product.deal?.discount_percentage > 0;
+  const discountPercentage = product.deal?.discount_percentage;
   const imageUrl = product.images?.[0];
   const imageSrc = process.env.NEXT_PUBLIC_IMAGE_URL
     ? `${process.env.NEXT_PUBLIC_IMAGE_URL}/${imageUrl}`
@@ -159,7 +159,7 @@ const ProductCard = ({
     <Wrapper>
       {/* Image */}
       <ImageWrapper $showCarouselActive={showCarouselActive}>
-        {!showCarouselActive && hasDiscount && (
+        {hasDiscount && (
           <BadgeWrapper>
             <BadgeDeal>
               <Typography
@@ -251,7 +251,7 @@ const ProductCard = ({
             $color="var(--color-8)"
             $lineHeight="1"
           >
-            {product.category?.[0]?.name}
+            {product.category?.name}
           </Typography>
           <Typography
             $fontSize="12px"
@@ -260,7 +260,7 @@ const ProductCard = ({
             $color="var(--color-1)"
             $truncate
           >
-            {product.category?.[0]?.description}
+            {product.category?.description}
           </Typography>
         </div>
 

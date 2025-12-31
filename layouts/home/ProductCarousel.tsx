@@ -111,7 +111,7 @@ const ProductCarousel = ({
             }
             return (
               <StyledCarouselItem key={product.id}>
-                <ProductCard product={product} />
+                <ProductCard product={product} showCarousel />
               </StyledCarouselItem>
             );
           })}

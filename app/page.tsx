@@ -6,7 +6,7 @@ import Feature from "@/layouts/home/Feature";
 import Footer from "@/layouts/home/Footer";
 import HomeLayout from "@/layouts/home/HomeLayout";
 import LatestView from "@/layouts/home/LatestView";
-import PopularProduct from "@/layouts/home/PopularProdcut";
+import PopularProduct from "@/layouts/home/PopularProduct";
 import WorkWithUs from "@/layouts/home/WorkWithUs";
 import Navbar from "@/layouts/navbar/Navbar";
 import apiClient from "@/lib/axios";

@@ -26,7 +26,7 @@ type ProductPriceProps = {
 };
 const ProductPrice = ({ product }: ProductPriceProps) => {
   const priceWithDiscount = useMemo(() => {
-    const discountPercent = product.deal?.[0]?.discount_percentage || 0;
+    const discountPercent = product.deal?.discount_percentage || 0;
     const price = product.pricing?.price_per_unit || 0;
     if (discountPercent > 0) {
       const discountedPrice = price - (price * discountPercent) / 100;
@@ -36,7 +36,7 @@ const ProductPrice = ({ product }: ProductPriceProps) => {
   }, [product]);
 
   const priceWithoutDiscount = product.pricing?.price_per_unit || 0;
-  const hasDiscount = product.deal?.[0]?.discount_percentage > 0;
+  const hasDiscount = product.deal?.discount_percentage > 0;
   const inStock = product.stock_quantity > 0;
   return (
     <Wrapper>

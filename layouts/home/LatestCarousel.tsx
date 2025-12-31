@@ -8,6 +8,7 @@ import { useDotButton } from "@/hooks/EmblaCarouselDotButton";
 import useEmblaCarousel from "embla-carousel-react";
 import styled from "styled-components";
 import * as Types from "@/types";
+import Link from "next/link";
 
 const StyledCarousel = styled.div`
   display: flex;
@@ -96,7 +97,9 @@ const LatestCarousel = ({ products }: LatestCarouselProps) => {
         <StyledCarouselContainer>
           {products.data.map((product) => (
             <StyledCarouselItem key={product.id}>
-              <LatestProductCard product={product} />
+              <Link href={`/products/${product.id}`} key={product.id}>
+                <LatestProductCard product={product} />
+              </Link>
             </StyledCarouselItem>
           ))}
         </StyledCarouselContainer>

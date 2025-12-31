@@ -14,7 +14,13 @@ const Wrapper = styled.section`
 const Banner = () => {
   return (
     <Wrapper>
-      <BannerCarousel />
+      <BannerCarousel
+        initImages={[
+          "/assets/banner-3.jpg",
+          "/assets/banner-4.jpg",
+          "/assets/banner-5.jpg",
+        ]}
+      />
     </Wrapper>
   );
 };

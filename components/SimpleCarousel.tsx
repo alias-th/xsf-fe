@@ -48,10 +48,12 @@ type SimpleCarouselProps = {
   autoplay?: boolean;
   containerButton?: StyledCarouselButtonContainerProps;
   carouselButton?: Partial<StyledCarouselButtonProps>;
+  initImages?: string[];
 };
 const SimpleCarousel = ({
   autoplay = true,
   images = [],
+  initImages = [],
   containerButton,
   carouselButton,
 }: SimpleCarouselProps) => {
@@ -65,11 +67,7 @@ const SimpleCarousel = ({
   const imagesToShow =
     images.length > 0
       ? images.map((img) => `${process.env.NEXT_PUBLIC_IMAGE_URL}/${img}`)
-      : [
-          "/assets/banner-3.jpg",
-          "/assets/banner-4.jpg",
-          "/assets/banner-5.jpg",
-        ];
+      : initImages;
 
   // const {
   //   prevBtnDisabled,

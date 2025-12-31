@@ -7,6 +7,7 @@ import Center from "@/components/Center";
 import SMNextIcon from "@/components/Icons/SmNextIcon";
 import * as Types from "@/types";
 import { useMemo } from "react";
+import Link from "next/link";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -88,10 +89,18 @@ const DealProduct = ({ dealProducts }: DealProductProps) => {
           </Center>
 
           <Center $width="fit-content" $height="24px" $gap="16px">
-            <Typography $variant="p" $color="var(--white-1)" $lineHeight="1">
-              สินค้าทั้งหมด
-            </Typography>
-            <SMNextIcon color="var(--white-1)" />
+            <Link href="/products">
+              <Center $width="fit-content" $height="24px" $gap="16px">
+                <Typography
+                  $variant="p"
+                  $color="var(--white-1)"
+                  $lineHeight="1"
+                >
+                  สินค้าทั้งหมด
+                </Typography>
+                <SMNextIcon color="var(--white-1)" />
+              </Center>
+            </Link>
           </Center>
         </Header>
         <ProductCarousel products={products} />

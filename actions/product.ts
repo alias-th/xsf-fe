@@ -60,4 +60,23 @@ const getProducts = async (query: {
   }
 };
 
-export { createProduct, getProducts };
+const getProductDetail = async ({ id }: { id: string }) => {
+  try {
+    const res = await apiClient.get<Types.Product>("/products/" + id);
+    return { data: res.data };
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.log(
+        "Axios error fetching product detail:",
+        error.response?.data || error.message
+      );
+      return {
+        status: error.response?.status,
+        error: error.response?.data.error || error.message,
+      };
+    }
+    return { status: 500, error: "Unknown error occurred" };
+  }
+};
+
+export { createProduct, getProducts, getProductDetail };

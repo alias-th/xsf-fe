@@ -6,6 +6,7 @@ import ProductCarousel from "./ProductCarousel";
 import Center from "@/components/Center";
 import SMNextIcon from "@/components/Icons/SmNextIcon";
 import * as Types from "@/types";
+import Link from "next/link";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -60,10 +61,18 @@ const PopularProduct = (props: PopularProductProps) => {
           </Center>
 
           <Center $width="fit-content" $height="24px" $gap="16px">
-            <Typography $variant="p" $color="var(--color-7)" $lineHeight="1">
-              สินค้าทั้งหมด
-            </Typography>
-            <SMNextIcon />
+            <Link href="/products">
+              <Center $width="fit-content" $height="24px" $gap="16px">
+                <Typography
+                  $variant="p"
+                  $color="var(--color-7)"
+                  $lineHeight="1"
+                >
+                  สินค้าทั้งหมด
+                </Typography>
+                <SMNextIcon />
+              </Center>
+            </Link>
           </Center>
         </Header>
         <ProductCarousel products={products.data} />

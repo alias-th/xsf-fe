@@ -9,6 +9,7 @@ import ProductCard, {
 } from "@/components/ProductCard";
 import { Typography } from "@/components/Typography";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import Link from "next/dist/client/link";
 import { useState } from "react";
 import styled from "styled-components";
 import { useDebounce } from "use-debounce";
@@ -45,7 +46,7 @@ const ProductList = () => {
         limit: 50,
         sortBy: "createdAt",
         sortOrder: "DESC",
-        search: debouncedSearchTerm,
+        search: debouncedSearchTerm || "",
       }),
     placeholderData: keepPreviousData,
   });

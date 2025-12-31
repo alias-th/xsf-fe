@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# XSF FullStack Developer Test
 
-## Getting Started
+แพลตฟอร์มออนไลน์ที่รวบรวมวัสดุตกแต่งพื้นผิวสำหรับบ้านและอาคาร พัฒนาโดยใช้ Next.js, Styled component.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Landing Page
+- All Product Page
+- Upload Product page
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## DB Diagram
 
-## Learn More
+https://dbdiagram.io/d/xsf-test-694f7dab39fa3db27b9e68a2
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment Variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| ตัวแปร                  | คำอธิบาย            | ตัวอย่าง |
+| ----------------------- | ------------------- | -------- |
+| `NEXT_PUBLIC_API_URL`   | Public api          | ``       |
+| `NEXT_PUBLIC_IMAGE_URL` | Public url image r2 | ``       |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## กำหนด Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. สร้าง `.env` ไว้ใน root directory ของ project:
+
+   ```bash
+   touch .env
+   ```
+
+2. กำหนดตัวแปรตามตารางด้านบน
+
+---
+
+## เริ่มการทำงานโดยใช้คำสั่งต่อไปนี้
+
+1. ติดตั้ง dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. เริ่มการทำงาน :
+
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## Postman Document
+
+https://documenter.getpostman.com/view/32892772/2sBXVbJuPY

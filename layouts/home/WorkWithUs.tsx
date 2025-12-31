@@ -32,11 +32,6 @@ const Item = styled.div`
 `;
 
 const WorkWithUs = () => {
-  const imageUrl = "placeholder-1.png";
-  const imageSrc = process.env.NEXT_PUBLIC_IMAGE_URL
-    ? `${process.env.NEXT_PUBLIC_IMAGE_URL}/${imageUrl}`
-    : imageUrl;
-
   const items = Array.from({ length: 7 }).map((_, index) => {
     return { id: index };
   });

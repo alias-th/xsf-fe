@@ -6,6 +6,7 @@ import ProductCarousel from "./ProductCarousel";
 import Center from "@/components/Center";
 import SMNextIcon from "@/components/Icons/SmNextIcon";
 import * as Types from "@/types";
+import { useMemo } from "react";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -40,13 +41,29 @@ const Header = styled.header`
 `;
 
 type DealProductProps = {
-  products: Types.Product[];
+  dealProducts: Types.DealList[];
 };
-const DealProduct = ({ products }: DealProductProps) => {
-  // const products = Array.from({ length: 24 }).map((_, index) => ({
-  //   id: index + 1,
-  //   name: `Product ${index + 1}`,
-  // }));
+const DealProduct = ({ dealProducts }: DealProductProps) => {
+  const products = useMemo(() => {
+    const products: Types.Product[] = [];
+    for (const dealProduct of dealProducts) {
+      products.push({
+        id: dealProduct.id,
+        name: dealProduct.name,
+        code: dealProduct.code,
+        description: dealProduct.description,
+        stock_quantity: dealProduct.stock_quantity,
+        images: dealProduct.images,
+        createdAt: "",
+        updatedAt: "",
+        pricing: dealProduct.pricing,
+        deal: [dealProduct.deal],
+        view: dealProduct.view,
+        category: [dealProduct.category],
+      });
+    }
+    return products;
+  }, [dealProducts]);
   return (
     <Wrapper>
       <BgColor />

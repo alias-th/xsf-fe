@@ -40,26 +40,9 @@ const getPopularityProducts = unstable_cache(
 const getDealProducts = unstable_cache(
   async () => {
     const response = await apiClient.get<{
-      data: Types.DealList;
-    }>("/deals/exclusive");
-    const deal = response.data;
-    const dealProducts: Types.Product[] = [];
-
-    for (const product of deal.data.products) {
-      dealProducts.push({
-        ...product,
-        deal: [
-          {
-            id: deal.data.id,
-            description: deal.data.description,
-            discount_percentage: deal.data.discount_percentage,
-            name: deal.data.name,
-          },
-        ],
-      });
-    }
-
-    return dealProducts;
+      data: Types.DealList[];
+    }>("/deals");
+    return response.data;
   },
   ["products-deal"],
   { revalidate: 60, tags: ["products-deal"] }
@@ -77,7 +60,7 @@ export default async function Home() {
       <Category categories={categories} />
       <LatestView products={popularityProducts} />
       <PopularProduct products={popularityProducts} />
-      <DealProduct products={deals} />
+      <DealProduct dealProducts={deals.data} />
       <Collection products={popularityProducts} />
       <Feature />
       <WorkWithUs />

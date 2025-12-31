@@ -131,17 +131,17 @@ const ProductCard = ({
   const showCarouselActive = showCarousel && product.images.length > 1;
   const hasDiscount = product.deal && product.deal[0]?.discount_percentage > 0;
   const discountPercentage = product.deal?.[0]?.discount_percentage;
-  const imageUrl = product.images?.[0] || "/images/placeholder.png";
+  const imageUrl = product.images?.[0];
   const imageSrc = process.env.NEXT_PUBLIC_IMAGE_URL
     ? `${process.env.NEXT_PUBLIC_IMAGE_URL}/${imageUrl}`
-    : imageUrl;
+    : "";
 
   if (isImageOnly) {
     return (
       <Wrapper $width="100%">
         <ImageWrapper $height="100%">
           <Image
-            src={imageSrc}
+            src={imageSrc || "/assets/placeholder-1.png"}
             alt={product.name}
             fill
             style={{

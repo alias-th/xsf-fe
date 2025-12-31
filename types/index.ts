@@ -3,7 +3,6 @@ export type Product = {
   name: string;
   code: string;
   description: string;
-  category_id: string;
   stock_quantity: number;
   images: string[];
   createdAt: string;
@@ -20,7 +19,6 @@ export type Product = {
 export type Deal = {
   id: string;
   name: string;
-  description: string;
   discount_percentage: number;
 };
 
@@ -43,7 +41,15 @@ export type Pagination = {
 export type DealList = {
   id: string;
   name: string;
+  code: string;
   description: string;
-  discount_percentage: number;
-  products: Product[];
+  stock_quantity: number;
+  images: string[];
+  pricing: {
+    price_per_unit: number;
+    unit_label: string;
+  };
+  deal: Deal;
+  view: number;
+  category: Category;
 };

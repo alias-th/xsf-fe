@@ -7,6 +7,7 @@ import ProductCard, {
   InfoWrapper,
   Wrapper,
 } from "@/components/ProductCard";
+import SpaceBetween from "@/components/SpaceBetween";
 import { Typography } from "@/components/Typography";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Link from "next/dist/client/link";
@@ -54,14 +55,19 @@ const ProductList = () => {
   if (isLoading) {
     return (
       <>
-        <Typography
-          $fontFamily="var(--font-poppins)"
-          $fontSize="32px"
-          $fontWeight="600"
-          $color="var(--color-1)"
-        >
-          Product list
-        </Typography>
+        <SpaceBetween>
+          <Typography
+            $fontFamily="var(--font-poppins)"
+            $fontSize="32px"
+            $fontWeight="600"
+            $color="var(--color-1)"
+          >
+            Product list
+          </Typography>
+          <Link href="/products/upload">
+            <u>Upload Product</u>
+          </Link>
+        </SpaceBetween>
         <InputItem placeholder="Name, Catalogue, Code" />
         <Container>
           <List>
@@ -87,14 +93,19 @@ const ProductList = () => {
 
   return (
     <>
-      <Typography
-        $fontFamily="var(--font-poppins)"
-        $fontSize="32px"
-        $fontWeight="600"
-        $color="var(--color-1)"
-      >
-        Product list
-      </Typography>
+      <SpaceBetween>
+        <Typography
+          $fontFamily="var(--font-poppins)"
+          $fontSize="32px"
+          $fontWeight="600"
+          $color="var(--color-1)"
+        >
+          Product list
+        </Typography>
+        <Link href="/products/upload">
+          <u>Upload Product</u>
+        </Link>
+      </SpaceBetween>
       <InputItem
         placeholder="Name, Code"
         onChange={(e) => setSearchTerm(e.target.value.trim())}

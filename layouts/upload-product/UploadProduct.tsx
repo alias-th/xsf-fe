@@ -15,6 +15,7 @@ import { useMutation } from "@tanstack/react-query";
 import { createProduct } from "@/actions/product";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const UploadContainer = styled.div`
   width: 100%;
@@ -238,21 +239,23 @@ const UploadProduct = () => {
               $alignItems="center"
               $justifyContent="center"
             >
-              <CustomButton
-                htmlType="button"
-                $width="190px"
-                $height="56px"
-                $border="1px solid var(--color-3)"
-                $backgroundColor="var(--white-1)"
-                onClick={() => {
-                  clearErrors();
-                  resetForm();
-                }}
-              >
-                <Typography $variant="p" $fontFamily="var(--font-prompt)">
-                  ยกเลิก
-                </Typography>
-              </CustomButton>
+              <Link href="/products">
+                <CustomButton
+                  htmlType="button"
+                  $width="190px"
+                  $height="56px"
+                  $border="1px solid var(--color-3)"
+                  $backgroundColor="var(--white-1)"
+                  onClick={() => {
+                    clearErrors();
+                    resetForm();
+                  }}
+                >
+                  <Typography $variant="p" $fontFamily="var(--font-prompt)">
+                    ยกเลิก
+                  </Typography>
+                </CustomButton>
+              </Link>
               <CustomButton
                 $width="190px"
                 $height="56px"

@@ -21,6 +21,7 @@ export const Wrapper = styled.div<WrapperProps>`
   box-shadow: 0px 4px 6px 0px #00000033;
   border-radius: 12px;
   overflow: auto;
+  cursor: pointer;
 `;
 
 type ImageWrapperProps = {

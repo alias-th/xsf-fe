@@ -11,6 +11,7 @@ import WorkWithUs from "@/layouts/home/WorkWithUs";
 import Navbar from "@/layouts/navbar/Navbar";
 import apiClient from "@/lib/axios";
 import * as Types from "@/types";
+import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 
 const getCategories = unstable_cache(
@@ -47,6 +48,10 @@ const getDealProducts = unstable_cache(
   ["products-deal"],
   { revalidate: 60, tags: ["products-deal"] }
 );
+
+export const metadata: Metadata = {
+  title: "XSurface - Your One-Stop Shop for Quality Products",
+};
 
 export default async function Home() {
   const categories = await getCategories();

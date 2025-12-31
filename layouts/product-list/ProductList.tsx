@@ -8,12 +8,15 @@ import ProductCard, {
   Wrapper,
 } from "@/components/ProductCard";
 import { Typography } from "@/components/Typography";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import styled from "styled-components";
+import { useDebounce } from "use-debounce";
 
 const Container = styled.div`
-  width: fit-content;
+  width: 100%;
   max-width: 1096px;
+  min-height: 100vh;
   margin: 0 auto;
 `;
 const List = styled.div`
@@ -31,20 +34,20 @@ const Item = styled.div`
 `;
 
 const ProductList = () => {
-  const products = Array.from({ length: 19 }).map((_, index) => ({
-    id: index + 1,
-    name: `Product ${index + 1}`,
-  }));
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
 
   const { data, error, isLoading } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["products", debouncedSearchTerm],
     queryFn: () =>
       getProducts({
         page: 1,
         limit: 50,
         sortBy: "createdAt",
         sortOrder: "DESC",
+        search: debouncedSearchTerm,
       }),
+    placeholderData: keepPreviousData,
   });
 
   if (isLoading) {
@@ -91,7 +94,10 @@ const ProductList = () => {
       >
         Product list
       </Typography>
-      <InputItem placeholder="Name, Catalogue, Code" />
+      <InputItem
+        placeholder="Name, Code"
+        onChange={(e) => setSearchTerm(e.target.value.trim())}
+      />
       <Container>
         <List>
           {data?.data?.map((product) => {

@@ -30,6 +30,7 @@ type InputItemProps = {
   register?: UseFormRegisterReturn<string>;
   error?: FieldError;
   type?: HTMLInputTypeAttribute;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 const InputItem = ({
   placeholder,
@@ -37,6 +38,7 @@ const InputItem = ({
   register,
   error,
   type,
+  onChange,
 }: InputItemProps) => {
   return (
     <Wrapper>
@@ -56,6 +58,7 @@ const InputItem = ({
           placeholder={placeholder}
           $placeholderColor="var(--color-3)"
           id={register?.name}
+          onChange={onChange}
           {...register}
         />
         {error && (

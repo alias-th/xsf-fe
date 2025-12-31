@@ -38,6 +38,7 @@ const getProducts = async (query: {
   limit?: number;
   sortOrder?: string;
   sortBy?: string;
+  search?: string;
 }) => {
   try {
     const res = await apiClient.get<{ data: Types.Product[] }>("/products", {

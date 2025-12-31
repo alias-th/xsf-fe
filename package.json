@@ -21,6 +21,7 @@
     "react-hook-form": "^7.69.0",
     "react-hot-toast": "^2.6.0",
     "styled-components": "^6.1.19",
+    "use-debounce": "^10.0.6",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

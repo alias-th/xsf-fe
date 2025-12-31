@@ -102,7 +102,7 @@ const UploadProduct = () => {
         id: uuidv4(),
       }));
 
-      setFiles((prevFiles) => [...prevFiles, ...filesWithId]);
+      setFiles((prevFiles) => [...prevFiles, ...filesWithId].slice(0, 6)); // limit to 6 files
       setFilesErrors((prevErrors) => [...prevErrors, ...rejectedFilesWithId]);
 
       // Update react-hook-form value

@@ -13,6 +13,8 @@ import apiClient from "@/lib/axios";
 import * as Types from "@/types";
 import { unstable_cache } from "next/cache";
 
+export const dynamic = "force-dynamic";
+
 const getCategories = unstable_cache(
   async () => {
     const response = await apiClient.get<{

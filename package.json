@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "docker:build": "docker build -t xsf-fe .",
+    "docker:run": "docker run -p 3000:3000 xsf-fe"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.15",

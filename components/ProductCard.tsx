@@ -8,6 +8,7 @@ import SimpleCarousel from "./SimpleCarousel";
 import * as Types from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type WrapperProps = {
   $width?: string;
@@ -129,6 +130,7 @@ const ProductCard = ({
   showCarousel,
   product,
 }: ProductCardProps) => {
+  const router = useRouter();
   const showCarouselActive = showCarousel && product.images.length > 1;
   const hasDiscount = product.deal && product.deal?.discount_percentage > 0;
   const discountPercentage = product.deal?.discount_percentage;
@@ -157,119 +159,117 @@ const ProductCard = ({
   }
 
   return (
-    <Link href={`/products/${product.id}`} key={product.id}>
-      <Wrapper>
-        {/* Image */}
-        <ImageWrapper $showCarouselActive={showCarouselActive}>
-          {hasDiscount && (
-            <BadgeWrapper>
-              <BadgeDeal>
-                <Typography
-                  $color="var(--color-7)"
-                  $variant="p-xxs"
-                  $lineHeight="1"
-                  $fontFamily="var(--font-poppins)"
-                  $fontWeight="500"
-                >
-                  X
-                </Typography>
-                <Typography
-                  $color="var(--white-1)"
-                  $variant="p-xxs"
-                  $lineHeight="1"
-                  $fontFamily="var(--font-poppins)"
-                  $fontWeight="500"
-                >
-                  clusive Deal
-                </Typography>
-              </BadgeDeal>
-
-              <BadgeDiscount discountPercentage={discountPercentage} />
-            </BadgeWrapper>
-          )}
-          {showCarouselActive && (
-            <SimpleCarousel
-              images={product.images}
-              autoplay={false}
-              containerButton={{ $bottom: "8px", $gap: "4px" }}
-              carouselButton={{ $height: "2px", $width: "16px" }}
-            />
-          )}
-          {!showCarouselActive && (
-            <Image
-              src={imageSrc}
-              alt={product.name}
-              fill
-              style={{
-                objectFit: "cover",
-              }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority
-            />
-          )}
-        </ImageWrapper>
-
-        {/* Info */}
-        <InfoWrapper>
-          <SpaceBetween>
-            <Typography
-              $fontSize="14px"
-              $fontWeight="600"
-              $fontFamily="var(--font-poppins)"
-              $truncate
-              $width="130px"
-            >
-              {product.name}
-            </Typography>
-            <AddIcon />
-          </SpaceBetween>
-          <SpaceBetween>
-            <Typography
-              $fontSize="12px"
-              $fontWeight="400"
-              $fontFamily="var(--font-prompt)"
-              $color="var(--color-8)"
-            >
-              {product.code}
-            </Typography>
-            <Center $gap="4px">
-              <ViewIcon />
+    <Wrapper onClick={() => router.push(`/products/${product.id}`)}>
+      {/* Image */}
+      <ImageWrapper $showCarouselActive={showCarouselActive}>
+        {hasDiscount && (
+          <BadgeWrapper>
+            <BadgeDeal>
               <Typography
-                $fontSize="10px"
-                $fontWeight="400"
-                $fontFamily="var(--font-prompt)"
-                $color="var(--color-8)"
+                $color="var(--color-7)"
+                $variant="p-xxs"
+                $lineHeight="1"
+                $fontFamily="var(--font-poppins)"
+                $fontWeight="500"
               >
-                {product.view || 0}
+                X
               </Typography>
-            </Center>
-          </SpaceBetween>
+              <Typography
+                $color="var(--white-1)"
+                $variant="p-xxs"
+                $lineHeight="1"
+                $fontFamily="var(--font-poppins)"
+                $fontWeight="500"
+              >
+                clusive Deal
+              </Typography>
+            </BadgeDeal>
 
-          <div style={{ minHeight: 30 }}>
+            <BadgeDiscount discountPercentage={discountPercentage} />
+          </BadgeWrapper>
+        )}
+        {showCarouselActive && (
+          <SimpleCarousel
+            images={product.images}
+            autoplay={false}
+            containerButton={{ $bottom: "8px", $gap: "4px" }}
+            carouselButton={{ $height: "2px", $width: "16px" }}
+          />
+        )}
+        {!showCarouselActive && (
+          <Image
+            src={imageSrc}
+            alt={product.name}
+            fill
+            style={{
+              objectFit: "cover",
+            }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
+          />
+        )}
+      </ImageWrapper>
+
+      {/* Info */}
+      <InfoWrapper>
+        <SpaceBetween>
+          <Typography
+            $fontSize="14px"
+            $fontWeight="600"
+            $fontFamily="var(--font-poppins)"
+            $truncate
+            $width="130px"
+          >
+            {product.name}
+          </Typography>
+          <AddIcon />
+        </SpaceBetween>
+        <SpaceBetween>
+          <Typography
+            $fontSize="12px"
+            $fontWeight="400"
+            $fontFamily="var(--font-prompt)"
+            $color="var(--color-8)"
+          >
+            {product.code}
+          </Typography>
+          <Center $gap="4px">
+            <ViewIcon />
             <Typography
               $fontSize="10px"
               $fontWeight="400"
               $fontFamily="var(--font-prompt)"
               $color="var(--color-8)"
-              $lineHeight="1"
             >
-              {product.category?.name}
+              {product.view || 0}
             </Typography>
-            <Typography
-              $fontSize="12px"
-              $fontWeight="400"
-              $fontFamily="var(--font-prompt)"
-              $color="var(--color-1)"
-              $truncate
-            >
-              {product.category?.description}
-            </Typography>
-          </div>
+          </Center>
+        </SpaceBetween>
 
-          <ProductPrice product={product} />
-        </InfoWrapper>
-      </Wrapper>
-    </Link>
+        <div style={{ minHeight: 30 }}>
+          <Typography
+            $fontSize="10px"
+            $fontWeight="400"
+            $fontFamily="var(--font-prompt)"
+            $color="var(--color-8)"
+            $lineHeight="1"
+          >
+            {product.category?.name}
+          </Typography>
+          <Typography
+            $fontSize="12px"
+            $fontWeight="400"
+            $fontFamily="var(--font-prompt)"
+            $color="var(--color-1)"
+            $truncate
+          >
+            {product.category?.description}
+          </Typography>
+        </div>
+
+        <ProductPrice product={product} />
+      </InfoWrapper>
+    </Wrapper>
   );
 };
 

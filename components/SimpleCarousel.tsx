@@ -88,7 +88,10 @@ const SimpleCarousel = ({
           <StyledCarouselButton
             key={index}
             $active={index === selectedIndex}
-            onClick={() => onDotButtonClick(index)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onDotButtonClick(index);
+            }}
             {...carouselButton}
           />
         ))}

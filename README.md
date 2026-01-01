@@ -4,7 +4,7 @@
 
 ---
 
-## Deployed:
+## Deployed
 
 - https://xsf-fe.vercel.app/
 - https://xsf-fe.vercel.app/products

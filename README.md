@@ -4,9 +4,11 @@
 
 ---
 
-## Live URL
+## Deployed:
 
 - https://xsf-fe.vercel.app/
+- https://xsf-fe.vercel.app/products
+- https://xsf-fe.vercel.app/products/upload
 
 ---
 

@@ -6,9 +6,9 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 import styled from "styled-components";
-import { HTMLInputTypeAttribute, useRef, useState } from "react";
-import Center from "./Center";
+import { HTMLInputTypeAttribute, useEffect, useRef, useState } from "react";
 import { Inputs } from "@/layouts/upload-product/UploadProduct";
+import Center from "@/components/Center";
 
 const Wrapper = styled.div`
   display: flex;
@@ -44,6 +44,7 @@ type InputItemProps = {
   type?: HTMLInputTypeAttribute;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setValue: UseFormSetValue<Inputs>;
+  value: string;
 };
 
 type SplitParts = {
@@ -57,6 +58,7 @@ const SplitInputItem = ({
   type,
   error,
   setValue,
+  value,
 }: InputItemProps) => {
   const [parts, setParts] = useState<SplitParts>({
     cat: "",
@@ -154,6 +156,13 @@ const SplitInputItem = ({
       prevRef?.current?.focus();
     }
   };
+
+  useEffect(() => {
+    if (!value) {
+      setParts({ cat: "", color: "", num: "" });
+      return;
+    }
+  }, [value]);
   return (
     <Wrapper>
       {label && (

@@ -32,16 +32,27 @@ const Item = styled.div`
 `;
 
 const WorkWithUs = () => {
-  const items = Array.from({ length: 7 }).map((_, index) => {
-    return { id: index };
-  });
+  const items = [
+    { id: 1, imageUrl: "/assets/logo-1.png" },
+    { id: 2, imageUrl: "/assets/logo-2.png" },
+    { id: 5, imageUrl: "/assets/logo-5.png" },
+    { id: 6, imageUrl: "/assets/logo-6.png" },
+    { id: 7, imageUrl: "/assets/logo-7.png" },
+    { id: 3, imageUrl: "/assets/logo-3.jpg" },
+    { id: 4, imageUrl: "/assets/logo-4.jpg" },
+  ];
   return (
     <Wrapper>
       <Typography $variant="p-2xl"> ร้านค้าที่ร่วมขายกับเรา</Typography>
       <Items>
         {items.map((item) => (
           <Item key={item.id}>
-            {/* <Image src={imageSrc} alt="work-with-us" width={128} height={128} /> */}
+            <Image
+              src={item.imageUrl}
+              alt="work-with-us"
+              width={128}
+              height={128}
+            />
           </Item>
         ))}
       </Items>

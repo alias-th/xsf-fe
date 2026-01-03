@@ -47,8 +47,10 @@ const ProductDetails = ({ productId }: Props) => {
       </CarouselWrapper>
       <ProductWrapper>
         <div>
-          <Typography $variant="h2"> Product Details </Typography>
-          <Typography>(Not implemented, for demonstration) </Typography>
+          <Typography $variant="h2">
+            {" "}
+            <u>Product Details</u>{" "}
+          </Typography>
         </div>
         <Typography
           $fontFamily="var(--font-poppins)"

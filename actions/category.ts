@@ -11,7 +11,10 @@ type Response = {
 };
 const getCategory = async (query: { page?: number; limit?: number }) => {
   try {
-    const res = await apiClient.get<Response>("/categories", {
+    const res = await apiClient.get<{
+      data: Category[];
+      pagination: Pagination;
+    }>("/categories", {
       params: query,
     });
     return { status: res.status, data: res.data };

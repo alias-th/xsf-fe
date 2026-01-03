@@ -16,7 +16,8 @@ import { createProduct } from "@/actions/product";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
-import SplitInputItem from "@/components/SpiltInputItem";
+import SplitInputItem from "./SpiltInputItem";
+import SelectItem from "./SelectItem";
 
 const UploadContainer = styled.div`
   width: 100%;
@@ -56,6 +57,7 @@ export type Inputs = {
   code: string;
   price: string;
   images: string;
+  category: { value: string; label: string } | null;
 };
 
 const UploadProduct = () => {
@@ -72,11 +74,24 @@ const UploadProduct = () => {
     watch,
   } = useForm<Inputs>({
     mode: "onChange",
+    defaultValues: {
+      images: "",
+      code: "",
+      price: "",
+      productName: "",
+      category: null,
+    },
   });
   const resetForm = () => {
     setFiles([]);
     setFilesErrors([]);
-    reset({ images: "", code: "", price: "", productName: "" });
+    reset({
+      images: "",
+      code: "",
+      price: "",
+      productName: "",
+      category: null,
+    });
   };
   const mutation = useMutation({
     mutationFn: createProduct,
@@ -156,6 +171,7 @@ const UploadProduct = () => {
     formData.append("name", data.productName);
     formData.append("code", transformedCode);
     formData.append("price", data.price);
+    formData.append("category_id", data.category ? data.category.value : "");
 
     mutation.mutate(formData);
   };
@@ -216,6 +232,7 @@ const UploadProduct = () => {
                 register={register("productName", { required: "Required" })}
                 error={errors.productName}
               />
+
               <SplitInputItem
                 label="Code"
                 setValue={setValue}
@@ -225,7 +242,16 @@ const UploadProduct = () => {
                   maxLength: { value: 8, message: "Must be 8 characters" },
                 })}
                 error={errors.code}
+                value={watch("code")}
               />
+
+              <SelectItem
+                setValue={setValue}
+                register={register("category", { required: "Required" })}
+                error={errors.category}
+                value={watch("category")}
+              />
+
               {/* float number text */}
               <InputItem
                 type="text"

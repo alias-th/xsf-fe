@@ -38,8 +38,8 @@ const WorkWithUs = () => {
     { id: 5, imageUrl: "/assets/logo-5.png" },
     { id: 6, imageUrl: "/assets/logo-6.png" },
     { id: 7, imageUrl: "/assets/logo-7.png" },
-    { id: 3, imageUrl: "/assets/logo-3.jpg" },
-    { id: 4, imageUrl: "/assets/logo-4.jpg" },
+    { id: 3, imageUrl: "/assets/logo-3.png" },
+    { id: 4, imageUrl: "/assets/logo-4.png" },
   ];
   return (
     <Wrapper>

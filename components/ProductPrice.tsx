@@ -59,7 +59,7 @@ const ProductPrice = ({ product }: ProductPriceProps) => {
             $color="var(--color-8)"
             $fontFamily="var(--font-prompt)"
           >
-            /ตร.ม.
+            / {product.pricing?.unit_label || "-"}
           </Typography>
         </Center>
 

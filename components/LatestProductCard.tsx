@@ -61,7 +61,7 @@ const LatestProductCard = ({ product }: LatestProductCardProps) => {
           $variant="p-xs"
           $color="var(--color-8)"
         >
-          /ตร.ม.
+          /{product.pricing.unit_label}
         </Typography>
       </TextContainer>
     </Wrapper>

@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import SplitInputItem from "./SpiltInputItem";
 import SelectItem from "./SelectItem";
+import CustomSelect from "@/components/Select";
 
 const UploadContainer = styled.div`
   width: 100%;
@@ -58,6 +59,7 @@ export type Inputs = {
   price: string;
   images: string;
   category: { value: string; label: string } | null;
+  unit: { value: string; label: string } | null;
 };
 
 const UploadProduct = () => {
@@ -80,6 +82,7 @@ const UploadProduct = () => {
       price: "",
       productName: "",
       category: null,
+      unit: null,
     },
   });
   const resetForm = () => {
@@ -91,6 +94,7 @@ const UploadProduct = () => {
       price: "",
       productName: "",
       category: null,
+      unit: null,
     });
   };
   const mutation = useMutation({
@@ -172,7 +176,7 @@ const UploadProduct = () => {
     formData.append("code", transformedCode);
     formData.append("price", data.price);
     formData.append("category_id", data.category ? data.category.value : "");
-
+    formData.append("unit_label", data.unit ? data.unit.value : "");
     mutation.mutate(formData);
   };
 
@@ -250,6 +254,31 @@ const UploadProduct = () => {
                 register={register("category", { required: "Required" })}
                 error={errors.category}
                 value={watch("category")}
+              />
+
+              <CustomSelect
+                value={watch("unit")}
+                error={errors.unit}
+                label="Unit"
+                setValue={setValue}
+                register={register("unit", { required: "Required" })}
+                options={[
+                  {
+                    label: "ตารางเมตร",
+                    value: "ตร.ม",
+                  },
+                  { label: "ชิ้น", value: "ชิ้น" },
+                  {
+                    label: "ม้วน",
+                    value: "ม้วน",
+                  },
+                  {
+                    label: "แพ็ค",
+                    value: "แพ็ค",
+                  },
+                  { label: "กิโลกรัม", value: "กก." },
+                  { label: "ลิตร", value: "ลิตร" },
+                ]}
               />
 
               {/* float number text */}

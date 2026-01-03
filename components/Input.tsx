@@ -30,6 +30,10 @@ const CustomInput = styled.input<StyledInputProps>`
     transition: background-color 5000s ease-in-out 0s;
   } */
 
+  &:disabled {
+    background-color: transparent;
+  }
+
   &::placeholder {
     color: ${(props) => props.$placeholderColor || "var(--color-5)"};
     font-family: var(--font-prompt);

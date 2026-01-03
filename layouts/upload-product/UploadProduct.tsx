@@ -16,6 +16,7 @@ import { createProduct } from "@/actions/product";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import SplitInputItem from "@/components/SpiltInputItem";
 
 const UploadContainer = styled.div`
   width: 100%;
@@ -50,7 +51,7 @@ const fileValidator = (file: File) => {
 };
 
 export type FileWithId = { file: File; id: string; errors?: string[] };
-type Inputs = {
+export type Inputs = {
   productName: string;
   code: string;
   price: string;
@@ -68,7 +69,10 @@ const UploadProduct = () => {
     trigger,
     reset,
     clearErrors,
-  } = useForm<Inputs>();
+    watch,
+  } = useForm<Inputs>({
+    mode: "onChange",
+  });
   const resetForm = () => {
     setFiles([]);
     setFilesErrors([]);
@@ -142,8 +146,15 @@ const UploadProduct = () => {
     for (const item of files) {
       formData.append("files", item.file);
     }
+
+    let transformedCode = data.code.toUpperCase();
+    const cat = transformedCode.slice(0, 2);
+    const subCat = transformedCode.slice(2, 5);
+    const itemCode = transformedCode.slice(5, 8);
+    transformedCode = `${cat}-${subCat}-${itemCode}`;
+
     formData.append("name", data.productName);
-    formData.append("code", data.code);
+    formData.append("code", transformedCode);
     formData.append("price", data.price);
 
     mutation.mutate(formData);
@@ -205,14 +216,13 @@ const UploadProduct = () => {
                 register={register("productName", { required: "Required" })}
                 error={errors.productName}
               />
-              <InputItem
-                type="text"
+              <SplitInputItem
                 label="Code"
-                placeholder="Code"
+                setValue={setValue}
                 register={register("code", {
                   required: "Required",
-                  maxLength: { value: 10, message: "Max length is 10" },
-                  minLength: { value: 6, message: "Min length is 6" },
+                  minLength: { value: 8, message: "Must be 8 characters" },
+                  maxLength: { value: 8, message: "Must be 8 characters" },
                 })}
                 error={errors.code}
               />

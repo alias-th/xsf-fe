@@ -1,6 +1,8 @@
 "use client";
 import { getProductDetail } from "@/actions/product";
-import SimpleCarousel from "@/components/SimpleCarousel";
+import SimpleCarousel, {
+  StyledCarouselItem,
+} from "@/components/SimpleCarousel";
 import { Typography } from "@/components/Typography";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";

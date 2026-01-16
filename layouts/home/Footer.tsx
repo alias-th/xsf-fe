@@ -136,7 +136,7 @@ const TiktokIcon = () => {
 };
 
 const Footer = () => {
-  const addressText = `เอ็กซ์เซอร์เฟส 53 ซอย สุขุมวิท 62, บางจาก,\nพระโขนง, กรุงเทพฯ 10260`;
+  const addressText = `-`;
   return (
     <Wrapper>
       <Container>
@@ -193,7 +193,7 @@ const Footer = () => {
                   เบอร์:
                 </Typography>
                 <Typography $variant="p-sm" $color="var(--color-12)">
-                  +66 65-656-288
+                  098 261 9398
                 </Typography>
               </Center>
             </Center>

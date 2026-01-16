@@ -16,6 +16,7 @@ const Wrapper = styled.nav`
   justify-content: space-between;
   gap: 32px;
   margin: 0 auto;
+  padding: 0 16px;
 `;
 
 const MoreOptionsIcon = () => {
@@ -39,9 +40,9 @@ const Navbar = () => {
     <Wrapper>
       <Link href="/">
         <Image
-          src="/assets/logo.svg"
+          src="/assets/logo-1.png"
           alt="Logo"
-          width={155}
+          width={30}
           height={30}
           loading="eager"
         />

@@ -141,13 +141,6 @@ const Footer = () => {
     <Wrapper>
       <Container>
         <HeaderSection>
-          <Image
-            src="/assets/logo-white.png"
-            alt="Logo"
-            width={180}
-            height={35}
-            loading="eager"
-          />
           <Typography $variant="p-sm" $color="var(--white-1)">
             เมื่อวัสดุปิดผิว การตกแต่ง มารวมกันในแพตฟอร์มที่เน้นการออกแบบ
           </Typography>
@@ -191,7 +184,7 @@ const Footer = () => {
                   อีเมล:
                 </Typography>
                 <Typography $variant="p-sm" $color="var(--color-12)">
-                  support@xsurface.com
+                  support@ecommerce.com
                 </Typography>
               </Center>
 
@@ -244,7 +237,7 @@ const Footer = () => {
               © 2021 . Copyright of
             </Typography>
             <Typography $variant="p-sm" $color="var(--white-1)">
-              XSURFACE Co. , Ltd.
+              E-commerce Co. , Ltd.
             </Typography>
           </Center>
 

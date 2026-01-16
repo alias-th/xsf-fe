@@ -50,7 +50,7 @@ const getDealProducts = unstable_cache(
 );
 
 export const metadata: Metadata = {
-  title: "XSurface - Your One-Stop Shop for Quality Products",
+  title: "E-Commerce - Your One-Stop Shop for Quality Products",
 };
 
 export default async function Home() {
